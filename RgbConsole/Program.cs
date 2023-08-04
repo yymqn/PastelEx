@@ -1,20 +1,17 @@
-﻿using PastelExtended;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+//using Pastel;
+using PastelExtended;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 using static Crayon.Output;
 
-/*var f = Formatter.ColorForeground($"Hello, {Formatter.ColorForeground($"w{Formatter.ColorForeground("or", Color.Orange)}ld", Color.Blue)}!", Color.Red);
-var pastel = $"Hello, {$"w{"or".Pastel(Color.Orange)}ld".Pastel(Color.Blue)}!".Pastel(Color.Red);
+// PastelEx 10x faster, 0.5 ratio of memory
 
-Console.WriteLine(f);
-Console.WriteLine(pastel);
-
-Console.WriteLine(Formatter.ColorForeground("Hello", Color.Orange));*/
-
+// WORKING CODE
 Console.WriteLine($"Your current health status is {"very good".Pastel("f0f").PastelDec(Decoration.RapidBlink, Decoration.DoubleUnderline)}!".Pastel(Color.White));
 
-// broken a bit
 var smth =
     PastelEx.Gradient(
         $"|||{$"|||{"|||".PastelDec(Decoration.Underline)}|||".PastelDec(Decoration.RapidBlink)}|||".PastelDec(Decoration.Italic),
@@ -32,4 +29,22 @@ Console.WriteLine(PastelEx.GradientBg(new string(' ', Console.WindowWidth), new 
 
 Console.Write(new string('#', Console.WindowWidth));
 
-Console.ReadKey(true);
+
+//Console.WriteLine(ConsoleExtensions.Pastel($"Hello, {ConsoleExtensions.Pastel($"wo{ConsoleExtensions.PastelBg("oooooooo", Color.White)}oorld", Color.Blue)}!", Color.Red));
+//BenchmarkRunner.Run<PastelBenchmark>();
+
+/*[MemoryDiagnoser]
+public class PastelBenchmark
+{
+    [Benchmark]
+    public string OriginalPastelVersion()
+    {
+        return ConsoleExtensions.Pastel($"Hello, {ConsoleExtensions.Pastel($"wo{ConsoleExtensions.PastelBg("oooooooo", Color.White)}oorld", Color.Blue)}!", Color.Red);
+    }
+
+    [Benchmark]
+    public string PastelExtendedVersion()
+    {
+        return PastelEx.Pastel($"Hello, {PastelEx.Pastel($"wo{PastelEx.PastelBg("oooooooo", Color.White)}oorld", Color.Blue)}!", Color.Red);
+    }
+}*/
