@@ -65,14 +65,14 @@ public static class PastelEx
         return Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Background);
     }
 
-    public static string PastelDec(this string input, Decoration decoration)
+    public static string PastelDeco(this string input, Decoration decoration)
     {
         if (!_enabled)
             return input;
 
         return Formatter.ChangeStyle(input, new ReadOnlySpan<Decoration>(decoration));
     }
-    public static string PastelDec(this string input, params Decoration[] decorations)
+    public static string PastelDeco(this string input, params Decoration[] decorations)
     {
         if (!_enabled)
             return input;
@@ -80,11 +80,22 @@ public static class PastelEx
         return Formatter.ChangeStyle(input, decorations);
     }
 
-    public static string Gradient(string input, params Color[] colors) => Gradient(input, colors.AsSpan());
+    public static string Gradient(string input, params Color[] colors) =>
+        Gradient(input, colors.AsSpan());
     public static string Gradient(string input, ReadOnlySpan<Color> colors)
-        => Helper.CreateGradientEffect(input, ColorPlane.Foreground, colors);
+    {
+        if (!_enabled)
+            return input;
+
+        return Helper.CreateGradientEffect(input, ColorPlane.Foreground, colors);
+    }
 
     public static string GradientBg(string input, params Color[] colors) => GradientBg(input, colors.AsSpan());
     public static string GradientBg(string input, ReadOnlySpan<Color> colors)
-        => Helper.CreateGradientEffect(input, ColorPlane.Background, colors);
+    {
+        if (!_enabled)
+            return input;
+
+        return Helper.CreateGradientEffect(input, ColorPlane.Background, colors);
+    }
 }
