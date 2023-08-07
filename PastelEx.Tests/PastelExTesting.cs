@@ -11,6 +11,7 @@ public class PastelExTesting
     [InlineData(0, 100, 1, "This is a string", "\u001b[38;2;0;100;1mThis is a string\u001b[0m")]
     public void Proper_Pastel_Formatting_No_Nesting(byte r, byte g, byte b, string input, string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, input.Pastel(Color.FromArgb(r, g, b)));
     }
 
@@ -20,6 +21,7 @@ public class PastelExTesting
     [InlineData(0, 100, 1, "This is a string", "\u001b[48;2;0;100;1mThis is a string\u001b[0m")]
     public void Proper_PastelBg_Formatting_No_Nesting(byte r, byte g, byte b, string input, string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, input.PastelBg(Color.FromArgb(r, g, b)));
     }
 
@@ -30,6 +32,7 @@ public class PastelExTesting
     public void Proper_Pastel_Formatting_Nested(byte r1, byte g1, byte b1, byte r2, byte g2, byte b2,
         string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, $"The {"nested".Pastel(Color.FromArgb(r2, g2, b2))} string".Pastel(Color.FromArgb(r1, g1, b1)));
     }
 
@@ -40,6 +43,7 @@ public class PastelExTesting
     public void Proper_PastelBg_Formatting_Nested(byte r1, byte g1, byte b1, byte r2, byte g2, byte b2,
         string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, $"The {"nested".PastelBg(Color.FromArgb(r2, g2, b2))} string".PastelBg(Color.FromArgb(r1, g1, b1)));
     }
 
@@ -50,6 +54,7 @@ public class PastelExTesting
     public void Proper_Pastel_With_PastelBg_Formatting_Nested(byte r1, byte g1, byte b1, byte r2, byte g2, byte b2,
         string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, $"The {"nested".Pastel(Color.FromArgb(r2, g2, b2))} string".PastelBg(Color.FromArgb(r1, g1, b1)));
     }
 
@@ -60,6 +65,7 @@ public class PastelExTesting
     [InlineData("f0f")]
     public void Proper_HexString_To_Color(string input)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal("\u001b[38;2;255;0;255mTest\u001b[0m", "Test".Pastel(input));
         Assert.Equal("\u001b[48;2;255;0;255mTest\u001b[0m", "Test".PastelBg(input));
     }
@@ -71,6 +77,7 @@ public class PastelExTesting
     public void Proper_PastelDeco_Formatting_No_Nesting(Decoration decoration,
         string input, string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, input.PastelDeco(decoration));
     }
 
@@ -81,6 +88,7 @@ public class PastelExTesting
     public void Proper_PastelDeco_Formatting_Nesting(Decoration globalDecoration, Decoration decoration2,
         string expected)
     {
+        PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, $"{"My".PastelDeco(decoration2)}Text".PastelDeco(globalDecoration));
     }
 }

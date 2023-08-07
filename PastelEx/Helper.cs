@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PastelExtended;
 internal class Helper
 {
-    public static int LastIndexOf(ReadOnlySpan<char> source, ReadOnlySpan<char> value)
+    public static int LastIndexOf(in ReadOnlySpan<char> source, in ReadOnlySpan<char> value)
     {
         int position = source.Length - 1;
         int len = value.Length - 1;
@@ -37,7 +33,7 @@ internal class Helper
         return -1;
     }
 
-    public static Color ParseFromHex(ReadOnlySpan<char> hexString)
+    public static Color ParseFromHex(in ReadOnlySpan<char> hexString)
     {
         if (hexString.Length < 3)
             return Color.Empty;
@@ -68,7 +64,8 @@ internal class Helper
             return Color.Empty;
     }
 
-    public static string CreateGradientEffect(string input, ColorPlane plane, ReadOnlySpan<Color> spectrum)
+    private const string _endingSequence = "m";
+    public static string CreateGradientEffect(in ReadOnlySpan<char> input, ColorPlane plane, in ReadOnlySpan<Color> spectrum)
     {
         var output = new StringBuilder();
         var size = input.Length;
@@ -104,10 +101,10 @@ internal class Helper
         {
             if (input[i] == '\u001b')
             {
-                int endIndex = input.IndexOf('m', i);
+                int endIndex = input[i..].IndexOf(_endingSequence) + i;
                 if (endIndex != -1)
                 {
-                    output.Append(input.AsSpan(i, endIndex - i + 1));
+                    output.Append(input.Slice(i, endIndex - i + 1));
                     i = endIndex;
                     continue;
                 }
@@ -115,7 +112,7 @@ internal class Helper
 
             if (i == size - 1)
             {
-                output.Append(Formatter.ColorRgb(input[i].ToString(), colorList[i], plane));
+                output.Append(Formatter.ColorRgb(new ReadOnlySpan<char>(input[i]), colorList[i], plane));
             }
             else
             {

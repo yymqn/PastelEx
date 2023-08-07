@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace PastelExtended;
-internal partial class WinNative
+internal static partial class WinNative
 {
     [LibraryImport(Kernel32DllName, EntryPoint = "GetConsoleMode")]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -25,10 +20,28 @@ internal partial class WinNative
     private const uint ENABLE_PROCESSED_OUTPUT = 0x0001;
     private const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
 
-    internal static void EnableVirtualProcessing()
+    internal static bool EnableIfSupported()
     {
-        var iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        _ = GetConsoleMode(iStdOut, out var outConsoleMode)
-                && SetConsoleMode(iStdOut, outConsoleMode | ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            var iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (iStdOut == IntPtr.Zero)
+            {
+                return false;
+            }
+
+            if (!GetConsoleMode(iStdOut, out uint outConsoleMode))
+            {
+                return false;
+            }
+
+            outConsoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+            if (!SetConsoleMode(iStdOut, outConsoleMode))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

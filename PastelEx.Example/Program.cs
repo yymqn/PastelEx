@@ -1,8 +1,5 @@
 ﻿using PastelExtended;
-using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 
 /*
@@ -33,8 +30,11 @@ Console.WriteLine(PastelEx.Gradient($"This text {$"have {"different".PastelDeco(
 Console.WriteLine($"This is the default {"red color".Pastel(ConsoleColor.Red)} defined by console and this is a {"blue color".Pastel(ConsoleColor.Blue)}.");
 
 // You can also use regular expressions to match specific parts and colorize them.
+var regex = new Regex(@"(\d+%)");
 Console.WriteLine(string.Concat(
-    "All numbers, so 4 or 1, but also 58116613 should be colored.".Split(' ').Select(ctx =>
+    regex.Split("Current task 76%      Overall 4%").Select(ctx =>
 {
-    return (Regex.IsMatch(ctx, @"\d+") ? ctx.Pastel(ConsoleColor.Cyan) : ctx) + " ";
+    return (regex.IsMatch(ctx) ? ctx.Pastel(Color.Yellow) : ctx);
 })));
+
+Console.ReadLine();
