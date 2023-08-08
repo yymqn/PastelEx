@@ -31,7 +31,7 @@ As you can see, PastelEx is much faster and much more memory efficient.
 //BenchmarkRunner.Run<CrayonVsPastelVsPastelExBenchmark>();
 BenchmarkRunner.Run<Benchmark>();
 
-// Three simple benchmarks to test PastelEx vs Crayon
+// Three simple benchmarks to test Pastel vs PastelEx vs Crayon
 [MemoryDiagnoser]
 public class CrayonVsPastelVsPastelExBenchmark
 {
