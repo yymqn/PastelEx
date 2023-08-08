@@ -39,7 +39,7 @@ public class CrayonVsPastelVsPastelExBenchmark
     public string Pastel() => ConsoleExtensions.Pastel($"This is my string", Color.Aqua);
 
     [Benchmark]
-    public string PastelXX() => PastelEx.Pastel($"This is my string", Color.Aqua);
+    public string PastelExtended() => PastelEx.Pastel($"This is my string", Color.Aqua);
 
     [Benchmark]
     public string Crayon() => Cyan($"This is my string");

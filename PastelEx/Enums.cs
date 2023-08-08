@@ -1,4 +1,7 @@
 ﻿namespace PastelExtended;
+/// <summary>
+/// Available text decorations.
+/// </summary>
 public enum Decoration : byte
 {
     Bold = 1,
