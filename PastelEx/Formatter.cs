@@ -13,27 +13,22 @@ internal class Formatter
 
     public static string GetRgbColorFormat(Color color, ColorPlane plane)
     {
-        return $"\u001b[{plane switch
-        {
-            ColorPlane.Foreground => 38,
-            ColorPlane.Background => 48,
-            _ => throw new NotImplementedException()
-        }};2;{color.R};{color.G};{color.B}m";
+        return $"\u001b[{(byte)plane};2;{color.R};{color.G};{color.B}m";
     }
 
     public static string ColorRgb(in ReadOnlySpan<char> text, Color color, ColorPlane plane)
     {
-        var format = $"\u001b[{plane switch
-        {
-            ColorPlane.Foreground => 38,
-            ColorPlane.Background => 48,
-            _ => throw new NotImplementedException()
-        }};2;{color.R};{color.G};{color.B}m";
-
+        var format = GetRgbColorFormat(color, plane);
         return $"{CloseNestedString($"{format}{text}", format)}{_ending}";
     }
 
-    public static string ColorUniversal(in ReadOnlySpan<char> text, ConsoleColor color, ColorPlane plane)
+    public static string Color8bit(in ReadOnlySpan<char> text, byte color, ColorPlane plane)
+    {
+        var format = $"\u001b[{(byte)plane};5;{color}m";
+        return $"{CloseNestedString($"{format}{text}", format)}{_ending}";
+    }
+
+    public static string ColorDefault(in ReadOnlySpan<char> text, ConsoleColor color, ColorPlane plane)
     {
         var format = $"\u001b[{Mappers.FromConsoleColor(color, plane)}m";
         return $"{CloseNestedString($"{format}{text}", format)}{_ending}";

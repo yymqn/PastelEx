@@ -3,8 +3,8 @@ using BenchmarkDotNet.Running;
 using Pastel;
 using PastelExtended;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using static Crayon.Output;
 
 /*
 
@@ -28,8 +28,24 @@ As you can see, PastelEx is much faster and much more memory efficient.
 |             PastelEx_Nested_HexStringColor |    18.691 ns |  0.4293 ns |  0.5272 ns | 0.0382 |      80 B |
 */
 
+//BenchmarkRunner.Run<CrayonVsPastelVsPastelExBenchmark>();
 BenchmarkRunner.Run<Benchmark>();
 
+// Three simple benchmarks to test PastelEx vs Crayon
+[MemoryDiagnoser]
+public class CrayonVsPastelVsPastelExBenchmark
+{
+    [Benchmark]
+    public string Pastel() => ConsoleExtensions.Pastel($"This is my string", Color.Aqua);
+
+    [Benchmark]
+    public string PastelXX() => PastelEx.Pastel($"This is my string", Color.Aqua);
+
+    [Benchmark]
+    public string Crayon() => Cyan($"This is my string");
+}
+
+// Pastel vs PastelEx performance
 [MemoryDiagnoser]
 public class Benchmark
 {

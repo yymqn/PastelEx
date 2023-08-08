@@ -30,7 +30,15 @@ public static class PastelEx
         if (!_enabled)
             return input;
 
-        return Formatter.ColorUniversal(input, consoleColor, ColorPlane.Foreground);
+        return Formatter.ColorDefault(input, consoleColor, ColorPlane.Foreground);
+    }
+
+    public static string Pastel(this string input, byte color)
+    {
+        if (!_enabled)
+            return input;
+
+        return Formatter.Color8bit(input, color, ColorPlane.Foreground);
     }
 
     public static string Pastel(this string input, in ReadOnlySpan<char> hexColor)
@@ -54,7 +62,15 @@ public static class PastelEx
         if (!_enabled)
             return input;
 
-        return Formatter.ColorUniversal(input, consoleColor, ColorPlane.Background);
+        return Formatter.ColorDefault(input, consoleColor, ColorPlane.Background);
+    }
+
+    public static string PastelBg(this string input, byte color)
+    {
+        if (!_enabled)
+            return input;
+
+        return Formatter.Color8bit(input, color, ColorPlane.Background);
     }
 
     public static string PastelBg(this string input, in ReadOnlySpan<char> hexColor)

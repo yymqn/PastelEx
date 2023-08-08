@@ -14,6 +14,6 @@ public enum Decoration : byte
 
 internal enum ColorPlane : byte
 {
-    Foreground,
-    Background
+    Foreground = 38,
+    Background = 48
 }

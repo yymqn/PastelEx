@@ -91,4 +91,58 @@ public class PastelExTesting
         PastelExtended.PastelEx.Enable();
         Assert.Equal(expected, $"{"My".PastelDeco(decoration2)}Text".PastelDeco(globalDecoration));
     }
+
+    [Theory]
+    [InlineData(255, "This is a string", "\u001b[38;5;255mThis is a string\u001b[0m")]
+    [InlineData(23, "This is a string", "\u001b[38;5;23mThis is a string\u001b[0m")]
+    [InlineData(100, "This is a string", "\u001b[38;5;100mThis is a string\u001b[0m")]
+    public void Proper_Pastel8bit_Formatting_No_Nesting(byte color, string input, string expected)
+    {
+        Assert.Equal(expected, input.Pastel(color));
+    }
+
+    [Theory]
+    [InlineData(255, "This is a string", "\u001b[48;5;255mThis is a string\u001b[0m")]
+    [InlineData(23, "This is a string", "\u001b[48;5;23mThis is a string\u001b[0m")]
+    [InlineData(100, "This is a string", "\u001b[48;5;100mThis is a string\u001b[0m")]
+    public void Proper_PastelBg8bit_Formatting_No_Nesting(byte color, string input, string expected)
+    {
+        Assert.Equal(expected, input.PastelBg(color));
+    }
+
+    [Theory]
+    [InlineData(22, 255, "\u001b[38;5;22mThe \u001b[38;5;255mnested\u001b[0m\u001b[38;5;22m string\u001b[0m")]
+    [InlineData(0, 255, "\u001b[38;5;0mThe \u001b[38;5;255mnested\u001b[0m\u001b[38;5;0m string\u001b[0m")]
+    [InlineData(78, 255, "\u001b[38;5;78mThe \u001b[38;5;255mnested\u001b[0m\u001b[38;5;78m string\u001b[0m")]
+    public void Proper_Pastel8bit_Formatting_Nested(byte color1, byte color2, string expected)
+    {
+        var nestedString = "nested".Pastel(color2);
+        var input = $"The {nestedString} string".Pastel(color1);
+
+        Assert.Equal(expected, input);
+    }
+
+    [Theory]
+    [InlineData(22, 255, "\u001b[48;5;22mThe \u001b[48;5;255mnested\u001b[0m\u001b[48;5;22m string\u001b[0m")]
+    [InlineData(0, 255, "\u001b[48;5;0mThe \u001b[48;5;255mnested\u001b[0m\u001b[48;5;0m string\u001b[0m")]
+    [InlineData(78, 255, "\u001b[48;5;78mThe \u001b[48;5;255mnested\u001b[0m\u001b[48;5;78m string\u001b[0m")]
+    public void Proper_PastelBg8bit_Formatting_Nested(byte color1, byte color2, string expected)
+    {
+        var nestedString = "nested".PastelBg(color2);
+        var input = $"The {nestedString} string".PastelBg(color1);
+
+        Assert.Equal(expected, input);
+    }
+
+    [Theory]
+    [InlineData(22, 255, "\u001b[48;5;22mThe \u001b[38;5;255mnested\u001b[0m\u001b[48;5;22m string\u001b[0m")]
+    [InlineData(0, 255, "\u001b[48;5;0mThe \u001b[38;5;255mnested\u001b[0m\u001b[48;5;0m string\u001b[0m")]
+    [InlineData(78, 255, "\u001b[48;5;78mThe \u001b[38;5;255mnested\u001b[0m\u001b[48;5;78m string\u001b[0m")]
+    public void Proper_Pastel8bit_With_PastelBg8bit_Formatting_Nested(byte color1, byte color2, string expected)
+    {
+        var nestedString = "nested".Pastel(color2);
+        var input = $"The {nestedString} string".PastelBg(color1);
+
+        Assert.Equal(expected, input);
+    }
 }
