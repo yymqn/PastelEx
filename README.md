@@ -43,4 +43,4 @@ Pastel uses regex every time it colorizes any string. Crayon uses StringBuilder 
 Code itself is tested, but it does not guarantee to work on all terminals.
 You should never explicitly call `PastelEx.Enable()`! For Windows, PastelEx automatically checks on first use, if current terminal SHOULD be capable to show Ansi color codes and tries to enable it (virtual terminal processing), if needed - otherwise it'll disable PastelEx to show non-colored output.
 
-[Demo Image](src/example1.png)
+[Demo Image](img/example1.png)
