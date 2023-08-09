@@ -145,4 +145,13 @@ public class PastelExTesting
 
         Assert.Equal(expected, input);
     }
+
+    [Fact]
+    public void Proper_GradienceEffect()
+    {
+        string expectedOutput = "\u001b[38;2;255;0;0ma\u001b[38;2;170;42;0mb\u001b[38;2;85;85;0mc\u001b[38;2;0;128;0md\u001b[38;2;0;64;127me\u001b[0m";
+        var gradientString = PastelExtended.PastelEx.Gradient("abcde", Color.Red, Color.Green, Color.Blue);
+
+        Assert.Equal(expectedOutput, gradientString);
+    }
 }

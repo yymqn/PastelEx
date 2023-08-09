@@ -2,11 +2,6 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 
-/*
- *  PastelEx is about 6,1 times faster and 2,1 times more efficient in
- *  terms of memory allocation even with more features!
- */
-
 // Supports default console colors and RGB colors even specified as hex string!
 // Allowed hex string formats may or may not start with one '#' and should contain 3 hexadecimal
 // chars #RGB or 6 hexadecimal chars #RRGGBB. You can also use System.Drawing.Color.

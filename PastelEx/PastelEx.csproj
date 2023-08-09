@@ -8,15 +8,18 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>PastelEx</Title>
-    <Authors>Kiiro</Authors>
+    <Authors>kiiro</Authors>
     <Company />
-    <Description>Lightweight extended version of Pastel containing features like text decorations.</Description>
+    <Description>A lightweight extended version of Pastel that includes features such as text decorations.</Description>
     <PackageIcon>pastelex-logo.png</PackageIcon>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/k-iro/PastelEx</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/k-iro/PastelEx/blob/master/README.md</PackageProjectUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Version>1.0.1</Version>
+    <RepositoryUrl>https://github.com/k-iro/PastelEx</RepositoryUrl>
+    <PackageReleaseNotes>Added method documentation</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

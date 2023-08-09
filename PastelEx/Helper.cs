@@ -120,7 +120,6 @@ internal class Helper
             }
         }
 
-        output.Append("\u001b[0m");
         return output.ToString();
     }
 

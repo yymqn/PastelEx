@@ -1,19 +1,18 @@
 # PastelEx
-Highly inspired by syntax of [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon). Without these libraries PastelEx won't exist. Tested on Windows and Linux.
+Highly inspired by the syntax of [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon). Without these libraries, PastelEx wouldn't exist.
+Tested on both Windows and Linux.
 
-# What this library can offer?
-It basically offers almost everything what Crayon does, however, this library can provide you:
-- Colorize with hex strings, ConsoleColor, Color or even 8-bit colors.
-- More text decorations, like Blinking, gradient text and more.
-- Lightweight! Very fast and memory efficient. (see bellow)
-- ... more
+# Inspiration
+Adding ANSI color codes can be a confusing and challenging task to do manually. This library makes coloring or styling console output a very easy task.
 
-# Is it really that fast?
-While string in C# is immutable, which means, you can't modify a string once you created it, PastelEx is fast enough to help you write a nice-looking console output without need of allocating a memory.
+# How It Works
+Using a simple syntax, like `"My string".Pastel(Color.Red)`, wraps your string in a special Unicode character sequence that instructs the terminal: "This text should be colored."
+You can also do it manually, but using this library offers you a few more benefits: ease of use and automatic checks for terminal support of ANSI color codes.
 
-PastelEx does not allocate any memory (from benchmarks), when you aren't nesting colored strings. If you're, then there will be a small amount of bytes allocated because of string operations, which are needed to close the modified string.
+# Any Performance Benefits?
+A string in C# is immutable, meaning you can't modify it once created. However, PastelEx is efficient enough to help you create a visually appealing console output without requiring a lot of memory allocation.
+PastelEx doesn't allocate any memory when you're not nesting colors. Below, you can see a benchmark with nested colors.
 
-Simple benchmark with nesting colors once:
 ```
 |   Method |        Mean |     Error |    StdDev |   Gen0 | Allocated |
 |--------- |------------:|----------:|----------:|-------:|----------:|
@@ -22,25 +21,14 @@ Simple benchmark with nesting colors once:
 |   Crayon |   453.23 ns |  8.953 ns | 12.254 ns | 0.6266 |    1312 B |
 ```
 
-As you can see from the benchmark, PastelEx is the best in it's speed and allocated memory per operation.
-While Crayon is not that bad at memory allocation and it's slightly slower.
-Pastel has the worst results in this benchmark, it's about 102 times slower than PastelEx and allocated 33 times more memory than PastelEx!
+PastelEx performs the best in terms of performance and memory allocation!
 
-## What about benchmark without nesting?
-PastelEx results are incredible! While both Crayon and Pastel allocated less memory, then PastelEx allocates zero of memory and it's even faster!
-```
-|   Method |       Mean |     Error |    StdDev |   Gen0 | Allocated |
-|--------- |-----------:|----------:|----------:|-------:|----------:|
-|   Pastel | 627.296 ns | 8.8328 ns | 8.2622 ns | 0.2327 |     488 B | <-- worst
-| PastelEx |   3.733 ns | 0.0218 ns | 0.0193 ns |      - |         - | <-- best
-|   Crayon | 167.562 ns | 0.3926 ns | 0.3065 ns | 0.2103 |     440 B |
-```
+## Has It Been Tested?
+The code itself is tested to ensure that it outputs colors and styles as the programmer intended.
+However, you should never explicitly call `PastelEx.Enable()`! For Windows, PastelEx automatically checks on the first use if the current terminal can display ANSI color codes. It tries to enable them if necessary; otherwise, it disables PastelEx to show non-colored output.
+Tested on both Windows and Linux.
 
-**But why?**
-Pastel uses regex every time it colorizes any string. Crayon uses StringBuilder to build output string, but PastelEx does not use any of them. Regex is very expensive and slow, Crayon uses StringBuilder, which is fast, but is allocated on heap. PastelEx uses simple string interpolation and stack allocated memory in most cases to process strings.
+# NO_COLOR
+This library checks whether the user has explicitly disabled ANSI color codes by adding an environment variable `NO_COLOR` with any value. If this environment variable exists, color output will automatically be disabled.
 
-## Is it tested?
-Code itself is tested, but it does not guarantee to work on all terminals.
-You should never explicitly call `PastelEx.Enable()`! For Windows, PastelEx automatically checks on first use, if current terminal SHOULD be capable to show Ansi color codes and tries to enable it (virtual terminal processing), if needed - otherwise it'll disable PastelEx to show non-colored output.
-
-<img src="img/example1.png"  width="800" height="120">
+![Example Image](img/example1.png)

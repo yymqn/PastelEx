@@ -2,19 +2,37 @@
 
 namespace PastelExtended;
 
+/// <summary>
+/// Method, which contains extension methods and more to use PastelEx.
+/// </summary>
 public static class PastelEx
 {
     static PastelEx()
     {
         if (Environment.GetEnvironmentVariable("NO_COLOR") is null &&
-            WinNative.EnableIfSupported())
+            (_supported = WinNative.EnableIfSupported()))
             Enable();
         else
             Disable();
     }
 
     private static bool _enabled;
+    private static readonly bool _supported;
+
+    /// <summary>
+    /// <see langword="true"/> if current terminal should support ANSI color codes; otherwise <see langword="false"/>
+    /// </summary>
+    public static bool IsSupported => _supported;
+
+    /// <summary>
+    /// Enables any future console output colors or styles.<br/>
+    /// </summary>
+    /// <remarks>Avoid calling this method to prevent unintended console styling activation on unsupported terminals.</remarks>
     public static void Enable() => _enabled = true;
+
+    /// <summary>
+    /// Disables any future console output colors or styles.<br/>
+    /// </summary>
     public static void Disable() => _enabled = false;
 
     /// <summary>

@@ -3,51 +3,42 @@ using BenchmarkDotNet.Running;
 using Pastel;
 using PastelExtended;
 using System.Drawing;
-using System.Text;
-using static Crayon.Output;
 
 /*
 
-Last benchmark, where PastelEx is extended version and Pastel is original version.
-As you can see, PastelEx is much faster and much more memory efficient.
+  * The benchmark results provided bellow are intended to give you a general idea of the relative
+    performance of the different methods. Please keep in mind that these results are based on a specific test environment
+    and may vary on different machines or under different conditions.
 
-|                                     Method |         Mean |      Error |     StdDev |   Gen0 | Allocated |
-|------------------------------------------- |-------------:|-----------:|-----------:|-------:|----------:|
-|            Pastel_SimpleColorization_Color |   623.957 ns |  3.6250 ns |  2.8302 ns | 0.2403 |     504 B |
-|     Pastel_SimpleColorization_ConsoleColor |   607.941 ns |  3.6457 ns |  3.2318 ns | 0.2403 |     504 B |
-|   Pastel_SimpleColorization_HexStringColor |   675.031 ns |  5.8237 ns |  5.1625 ns | 0.2594 |     544 B |
-|                        Pastel_Nested_Color | 1,997.118 ns |  9.2122 ns |  8.1663 ns | 0.8125 |    1705 B |
-|                 Pastel_Nested_ConsoleColor | 1,956.879 ns | 21.2824 ns | 19.9076 ns | 0.8125 |    1705 B |
-|               Pastel_Nested_HexStringColor | 2,081.262 ns | 28.3969 ns | 26.5625 ns | 0.8507 |    1785 B |
-|                                            |              |            |            |        |           |
-|          PastelEx_SimpleColorization_Color |     1.447 ns |  0.0156 ns |  0.0146 ns |      - |         - |
-|   PastelEx_SimpleColorization_ConsoleColor |     1.333 ns |  0.0108 ns |  0.0101 ns |      - |         - |
-| PastelEx_SimpleColorization_HexStringColor |     1.715 ns |  0.0302 ns |  0.0236 ns |      - |         - |
-|                      PastelEx_Nested_Color |    19.340 ns |  0.4254 ns |  0.7224 ns | 0.0382 |      80 B |
-|               PastelEx_Nested_ConsoleColor |    17.413 ns |  0.0800 ns |  0.0668 ns | 0.0382 |      80 B |
-|             PastelEx_Nested_HexStringColor |    18.691 ns |  0.4293 ns |  0.5272 ns | 0.0382 |      80 B |
+
+    |                                     Method |         Mean |      Error |     StdDev |   Gen0 | Allocated |
+    |------------------------------------------- |-------------:|-----------:|-----------:|-------:|----------:|
+    |            Pastel_SimpleColorization_Color |   627.534 ns |  5.0872 ns |  4.2480 ns | 0.2403 |     504 B |
+    |     Pastel_SimpleColorization_ConsoleColor |   620.943 ns |  5.0290 ns |  4.1994 ns | 0.2403 |     504 B |
+    |   Pastel_SimpleColorization_HexStringColor |   676.346 ns |  2.8735 ns |  2.6879 ns | 0.2594 |     544 B |
+    |                        Pastel_Nested_Color | 2,022.655 ns |  9.4569 ns |  8.8460 ns | 0.8125 |    1705 B |
+    |                 Pastel_Nested_ConsoleColor | 1,986.229 ns | 10.2794 ns |  9.1124 ns | 0.8125 |    1705 B |
+    |               Pastel_Nested_HexStringColor | 2,105.130 ns | 13.8201 ns | 12.9274 ns | 0.8507 |    1785 B |
+    |          PastelEx_SimpleColorization_Color |     3.714 ns |  0.0032 ns |  0.0027 ns |      - |         - |
+    |   PastelEx_SimpleColorization_ConsoleColor |     1.581 ns |  0.0137 ns |  0.0121 ns |      - |         - |
+    | PastelEx_SimpleColorization_HexStringColor |     3.036 ns |  0.0465 ns |  0.0435 ns |      - |         - |
+    |                      PastelEx_Nested_Color |    23.726 ns |  0.0608 ns |  0.0539 ns | 0.0382 |      80 B |
+    |               PastelEx_Nested_ConsoleColor |    17.174 ns |  0.1406 ns |  0.1174 ns | 0.0382 |      80 B |
+    |             PastelEx_Nested_HexStringColor |    24.651 ns |  0.1570 ns |  0.1311 ns | 0.0382 |      80 B |
+    |                     PastelEx_SimpleStyling |     1.224 ns |  0.0142 ns |  0.0126 ns |      - |         - |
+    |                     PastelEx_NestedStyling |    17.501 ns |  0.0589 ns |  0.0492 ns | 0.0306 |      64 B |
+    |                   PastelEx_SimpleGradience |     1.648 ns |  0.0880 ns |  0.1047 ns |      - |         - |
+
 */
 
-//BenchmarkRunner.Run<CrayonVsPastelVsPastelExBenchmark>();
 BenchmarkRunner.Run<Benchmark>();
+Console.Read();
 
-// Three simple benchmarks to test Pastel vs PastelEx vs Crayon
 [MemoryDiagnoser]
-public class CrayonVsPastelVsPastelExBenchmark
-{
-    [Benchmark]
-    public string Pastel() => ConsoleExtensions.Pastel($"This is my string", Color.Aqua);
-
-    [Benchmark]
-    public string PastelExtended() => PastelEx.Pastel($"This is my string", Color.Aqua);
-
-    [Benchmark]
-    public string Crayon() => Cyan($"This is my string");
-}
-
-// Pastel vs PastelEx performance
-[MemoryDiagnoser]
+#pragma warning disable CA1050
+#pragma warning disable CA1822
 public class Benchmark
+#pragma warning restore CA1050
 {
     #region Pastel
     [Benchmark]
@@ -80,4 +71,17 @@ public class Benchmark
     [Benchmark]
     public string PastelEx_Nested_HexStringColor() => PastelEx.Pastel($"This is {PastelEx.PastelBg("my colorized", "#ffffff")} string", "#00ffff");
     #endregion
+
+    #region Other PastelEx features
+    [Benchmark]
+    public string PastelEx_SimpleStyling() => PastelEx.PastelDeco("This text is cool!", Decoration.Italic);
+    [Benchmark]
+    public string PastelEx_NestedStyling() => PastelEx.PastelDeco($"This text is {PastelEx.PastelDeco("cool", Decoration.Underline)}!", Decoration.Italic);
+
+    static readonly Color[] gradientColors = { Color.Red, Color.Yellow, Color.Lime };
+    [Benchmark]
+    public string PastelEx_SimpleGradience() => PastelEx.Gradient($"This text will be gradient ...", gradientColors);
+
+    #endregion
 }
+#pragma warning restore CA1822
