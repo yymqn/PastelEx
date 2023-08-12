@@ -233,6 +233,17 @@ public static class PastelEx
     }
 
     /// <summary>
+    /// Refills current console buffer with empty chars, with clearing the buffer.
+    /// </summary>
+    public static void Refill()
+    {
+        if (_enabled)
+            Console.Write("\u001b[2J");
+        else
+            Console.Clear();
+    }
+
+    /// <summary>
     /// Removes all default decorations and colors.
     /// </summary>
     public static void Reset()
@@ -245,31 +256,4 @@ public static class PastelEx
             Console.Write("\u001b[0m");
         Console.ResetColor();
     }
-
-    #region Old methods scheduled for removal in next version
-#pragma warning disable CS1591
-    [Obsolete("Use string.Fg() method instead")]
-    public static string Pastel(this string input, Color color) => Fg(input, color);
-    [Obsolete("Use string.Fg() method instead")]
-    public static string Pastel(this string input, ConsoleColor consoleColor) => Fg(input, consoleColor);
-    [Obsolete("Use string.Fg() method instead")]
-    public static string Pastel(this string input, byte color) => Fg(input, color);
-    [Obsolete("Use string.Fg() method instead")]
-    public static string Pastel(this string input, in ReadOnlySpan<char> hexColor) => Fg(input, hexColor);
-
-    [Obsolete("Use string.Bg() method instead")]
-    public static string PastelBg(this string input, Color color) => Bg(input, color);
-    [Obsolete("Use string.Bg() method instead")]
-    public static string PastelBg(this string input, ConsoleColor consoleColor) => Bg(input, consoleColor);
-    [Obsolete("Use string.Bg() method instead")]
-    public static string PastelBg(this string input, byte color) => Bg(input, color);
-    [Obsolete("Use string.Bg() method instead")]
-    public static string PastelBg(this string input, in ReadOnlySpan<char> hexColor) => Bg(input, hexColor);
-
-    [Obsolete("Use string.Deco() method instead")]
-    public static string PastelDeco(this string input, Decoration decoration) => Deco(input, decoration);
-    [Obsolete("Use string.Deco() method instead")]
-    public static string PastelDeco(this string input, params Decoration[] decorations) => Deco(input, decorations);
-#pragma warning restore CS1591
-    #endregion
 }
