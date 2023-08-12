@@ -21,7 +21,7 @@
     <RepositoryUrl>https://github.com/k-iro/PastelEx</RepositoryUrl>
     <PackageReleaseNotes>New methods and properties (and simplified method names)!
 NOTE: Old methods are marked as obsolete now.</PackageReleaseNotes>
-    <PackageTags>colors;colours;console colors;ansi colors;rgb;colorful;colorization;console;pastel;coloring;colorization;colored;color;colour;foreground;background;decorations</PackageTags>
+    <PackageTags>colors;colours;console colors;ansi colors;consolecolor;rgb;colorful;colorization;console;pastel;coloring;colorization;colored;color;colour;foreground;background;decorations</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
