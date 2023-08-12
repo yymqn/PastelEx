@@ -13,21 +13,21 @@ using System.Drawing;
 
     |                                     Method |         Mean |      Error |     StdDev |   Gen0 | Allocated |
     |------------------------------------------- |-------------:|-----------:|-----------:|-------:|----------:|
-    |            Pastel_SimpleColorization_Color |   627.534 ns |  5.0872 ns |  4.2480 ns | 0.2403 |     504 B |
-    |     Pastel_SimpleColorization_ConsoleColor |   620.943 ns |  5.0290 ns |  4.1994 ns | 0.2403 |     504 B |
-    |   Pastel_SimpleColorization_HexStringColor |   676.346 ns |  2.8735 ns |  2.6879 ns | 0.2594 |     544 B |
-    |                        Pastel_Nested_Color | 2,022.655 ns |  9.4569 ns |  8.8460 ns | 0.8125 |    1705 B |
-    |                 Pastel_Nested_ConsoleColor | 1,986.229 ns | 10.2794 ns |  9.1124 ns | 0.8125 |    1705 B |
-    |               Pastel_Nested_HexStringColor | 2,105.130 ns | 13.8201 ns | 12.9274 ns | 0.8507 |    1785 B |
-    |          PastelEx_SimpleColorization_Color |     3.714 ns |  0.0032 ns |  0.0027 ns |      - |         - |
-    |   PastelEx_SimpleColorization_ConsoleColor |     1.581 ns |  0.0137 ns |  0.0121 ns |      - |         - |
-    | PastelEx_SimpleColorization_HexStringColor |     3.036 ns |  0.0465 ns |  0.0435 ns |      - |         - |
-    |                      PastelEx_Nested_Color |    23.726 ns |  0.0608 ns |  0.0539 ns | 0.0382 |      80 B |
-    |               PastelEx_Nested_ConsoleColor |    17.174 ns |  0.1406 ns |  0.1174 ns | 0.0382 |      80 B |
-    |             PastelEx_Nested_HexStringColor |    24.651 ns |  0.1570 ns |  0.1311 ns | 0.0382 |      80 B |
-    |                     PastelEx_SimpleStyling |     1.224 ns |  0.0142 ns |  0.0126 ns |      - |         - |
-    |                     PastelEx_NestedStyling |    17.501 ns |  0.0589 ns |  0.0492 ns | 0.0306 |      64 B |
-    |                   PastelEx_SimpleGradience |     1.648 ns |  0.0880 ns |  0.1047 ns |      - |         - |
+    |            Pastel_SimpleColorization_Color |   628.842 ns |  4.4861 ns |  4.1963 ns | 0.2403 |     504 B |
+    |     Pastel_SimpleColorization_ConsoleColor |   624.715 ns |  3.3022 ns |  2.9273 ns | 0.2403 |     504 B |
+    |   Pastel_SimpleColorization_HexStringColor |   666.525 ns |  2.9819 ns |  2.4900 ns | 0.2594 |     544 B |
+    |                        Pastel_Nested_Color | 1,985.768 ns |  9.5572 ns |  8.9398 ns | 0.8125 |    1705 B |
+    |                 Pastel_Nested_ConsoleColor | 1,990.269 ns | 24.3285 ns | 18.9941 ns | 0.8125 |    1705 B |
+    |               Pastel_Nested_HexStringColor | 2,122.618 ns | 41.4472 ns | 40.7067 ns | 0.8507 |    1785 B |
+    |          PastelEx_SimpleColorization_Color |     4.030 ns |  0.1042 ns |  0.1200 ns |      - |         - |
+    |   PastelEx_SimpleColorization_ConsoleColor |     1.377 ns |  0.0702 ns |  0.0657 ns |      - |         - |
+    | PastelEx_SimpleColorization_HexStringColor |     3.041 ns |  0.0949 ns |  0.0842 ns |      - |         - |
+    |                      PastelEx_Nested_Color |    24.482 ns |  0.1689 ns |  0.1580 ns | 0.0382 |      80 B |
+    |               PastelEx_Nested_ConsoleColor |    18.630 ns |  0.1168 ns |  0.1035 ns | 0.0382 |      80 B |
+    |             PastelEx_Nested_HexStringColor |    24.961 ns |  0.1878 ns |  0.1569 ns | 0.0382 |      80 B |
+    |                     PastelEx_SimpleStyling |     1.271 ns |  0.0231 ns |  0.0205 ns |      - |         - |
+    |                     PastelEx_NestedStyling |    18.276 ns |  0.0572 ns |  0.0477 ns | 0.0306 |      64 B |
+    |                   PastelEx_SimpleGradience |     1.519 ns |  0.0084 ns |  0.0074 ns |      - |         - |
 
 */
 
@@ -58,25 +58,25 @@ public class Benchmark
 
     #region PastelEx
     [Benchmark]
-    public string PastelEx_SimpleColorization_Color() => PastelEx.Pastel("This is my colorized string", Color.Aqua);
+    public string PastelEx_SimpleColorization_Color() => PastelEx.Fg("This is my colorized string", Color.Aqua);
     [Benchmark]
-    public string PastelEx_SimpleColorization_ConsoleColor() => PastelEx.Pastel("This is my colorized string", ConsoleColor.Cyan);
+    public string PastelEx_SimpleColorization_ConsoleColor() => PastelEx.Fg("This is my colorized string", ConsoleColor.Cyan);
     [Benchmark]
-    public string PastelEx_SimpleColorization_HexStringColor() => PastelEx.Pastel("This is my colorized string", "#00ffff");
+    public string PastelEx_SimpleColorization_HexStringColor() => PastelEx.Fg("This is my colorized string", "#00ffff");
 
     [Benchmark]
-    public string PastelEx_Nested_Color() => PastelEx.Pastel($"This is {PastelEx.PastelBg("my colorized", Color.White)} string", Color.Aqua);
+    public string PastelEx_Nested_Color() => PastelEx.Fg($"This is {PastelEx.Bg("my colorized", Color.White)} string", Color.Aqua);
     [Benchmark]
-    public string PastelEx_Nested_ConsoleColor() => PastelEx.Pastel($"This is {PastelEx.PastelBg("my colorized", ConsoleColor.White)} string", ConsoleColor.Cyan);
+    public string PastelEx_Nested_ConsoleColor() => PastelEx.Fg($"This is {PastelEx.Bg("my colorized", ConsoleColor.White)} string", ConsoleColor.Cyan);
     [Benchmark]
-    public string PastelEx_Nested_HexStringColor() => PastelEx.Pastel($"This is {PastelEx.PastelBg("my colorized", "#ffffff")} string", "#00ffff");
+    public string PastelEx_Nested_HexStringColor() => PastelEx.Fg($"This is {PastelEx.Bg("my colorized", "#ffffff")} string", "#00ffff");
     #endregion
 
     #region Other PastelEx features
     [Benchmark]
-    public string PastelEx_SimpleStyling() => PastelEx.PastelDeco("This text is cool!", Decoration.Italic);
+    public string PastelEx_SimpleStyling() => PastelEx.Deco("This text is cool!", Decoration.Italic);
     [Benchmark]
-    public string PastelEx_NestedStyling() => PastelEx.PastelDeco($"This text is {PastelEx.PastelDeco("cool", Decoration.Underline)}!", Decoration.Italic);
+    public string PastelEx_NestedStyling() => PastelEx.Deco($"This text is {PastelEx.Deco("cool", Decoration.Underline)}!", Decoration.Italic);
 
     static readonly Color[] gradientColors = { Color.Red, Color.Yellow, Color.Lime };
     [Benchmark]

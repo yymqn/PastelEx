@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace PastelExtended;
 
@@ -16,13 +17,18 @@ public static class PastelEx
             Disable();
     }
 
-    private static bool _enabled;
+    internal static bool _enabled;
     private static readonly bool _supported;
 
     /// <summary>
     /// <see langword="true"/> if current terminal should support ANSI color codes; otherwise <see langword="false"/>
     /// </summary>
     public static bool IsSupported => _supported;
+
+    /// <summary>
+    /// <see langword="true"/> if PastelEx is enabled; otherwise <see langword="false"/>
+    /// </summary>
+    public static bool Enabled => _enabled;
 
     /// <summary>
     /// Enables any future console output colors or styles.<br/>
@@ -41,13 +47,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="color">The RGB color to apply to the text.</param>
     /// <returns>The colorized input string.</returns>
-    public static string Pastel(this string input, Color color)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorRgb(input, color, ColorPlane.Foreground);
-    }
+    public static string Fg(this string input, Color color) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorRgb(input, color, ColorPlane.Foreground)}"
+        : input;
 
     /// <summary>
     /// Colorizes the input string using the specified console color.
@@ -55,13 +57,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="consoleColor">The console color to apply to the text.</param>
     /// <returns>The colorized input string.</returns>
-    public static string Pastel(this string input, ConsoleColor consoleColor)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorDefault(input, consoleColor, ColorPlane.Foreground);
-    }
+    public static string Fg(this string input, ConsoleColor consoleColor) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorDefault(input, consoleColor, ColorPlane.Foreground)}"
+        : input;
 
     /// <summary>
     /// Colorizes the input string using the specified 8-bit console color.
@@ -69,13 +67,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="color">The 8-bit console color to apply to the text.</param>
     /// <returns>The colorized input string.</returns>
-    public static string Pastel(this string input, byte color)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.Color8bit(input, color, ColorPlane.Foreground);
-    }
+    public static string Fg(this string input, byte color) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Foreground)}"
+        : input;
 
     /// <summary>
     /// Colorizes the input string using the specified hex color value.
@@ -83,13 +77,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="hexColor">The hex color value to apply to the text.</param>
     /// <returns>The colorized input string.</returns>
-    public static string Pastel(this string input, in ReadOnlySpan<char> hexColor)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Foreground);
-    }
+    public static string Fg(this string input, in ReadOnlySpan<char> hexColor) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Foreground)}"
+        : input;
 
     /// <summary>
     /// Colorizes the background of the input string using the specified RGB color.
@@ -97,13 +87,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="color">The RGB color to apply to the background.</param>
     /// <returns>The input string with background colorized.</returns>
-    public static string PastelBg(this string input, Color color)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorRgb(input, color, ColorPlane.Background);
-    }
+    public static string Bg(this string input, Color color) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorRgb(input, color, ColorPlane.Background)}"
+        : input;
 
     /// <summary>
     /// Colorizes the background of the input string using the specified console color.
@@ -111,13 +97,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="consoleColor">The console color to apply to the background.</param>
     /// <returns>The input string with background colorized.</returns>
-    public static string PastelBg(this string input, ConsoleColor consoleColor)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorDefault(input, consoleColor, ColorPlane.Background);
-    }
+    public static string Bg(this string input, ConsoleColor consoleColor) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorDefault(input, consoleColor, ColorPlane.Background)}"
+        : input;
 
     /// <summary>
     /// Colorizes the background of the input string using the specified 8-bit console color.
@@ -125,13 +107,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="color">The 8-bit console color to apply to the background.</param>
     /// <returns>The input string with background colorized.</returns>
-    public static string PastelBg(this string input, byte color)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.Color8bit(input, color, ColorPlane.Background);
-    }
+    public static string Bg(this string input, byte color) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Background)}"
+        : input;
 
     /// <summary>
     /// Colorizes the background of the input string using the specified hex color value.
@@ -139,13 +117,9 @@ public static class PastelEx
     /// <param name="input">The input string to be colorized.</param>
     /// <param name="hexColor">The hex color value to apply to the background.</param>
     /// <returns>The input string with background colorized.</returns>
-    public static string PastelBg(this string input, in ReadOnlySpan<char> hexColor)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Background);
-    }
+    public static string Bg(this string input, in ReadOnlySpan<char> hexColor) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Background)}"
+        : input;
 
     /// <summary>
     /// Decorates the input string with the specified text decoration.
@@ -153,13 +127,9 @@ public static class PastelEx
     /// <param name="input">The input string to be decorated.</param>
     /// <param name="decoration">The text decoration to apply.</param>
     /// <returns>The decorated string.</returns>
-    public static string PastelDeco(this string input, Decoration decoration)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ChangeStyle(input, new ReadOnlySpan<Decoration>(decoration));
-    }
+    public static string Deco(this string input, Decoration decoration) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ChangeStyle(input, new ReadOnlySpan<Decoration>(decoration))}"
+        : input;
 
     /// <summary>
     /// Decorates the input string with multiple text decorations.
@@ -167,13 +137,9 @@ public static class PastelEx
     /// <param name="input">The input string to be decorated.</param>
     /// <param name="decorations">The array of text decorations to apply.</param>
     /// <returns>The decorated string.</returns>
-    public static string PastelDeco(this string input, params Decoration[] decorations)
-    {
-        if (!_enabled)
-            return input;
-
-        return Formatter.ChangeStyle(input, decorations);
-    }
+    public static string Deco(this string input, params Decoration[] decorations) => _enabled ?
+        $"{Formatter.DefaultFormat}{Formatter.ChangeStyle(input, decorations)}"
+        : input;
 
     /// <summary>
     /// Creates a gradient effect on the input string using the specified colors.
@@ -181,7 +147,9 @@ public static class PastelEx
     /// <param name="input">The input string to apply the gradient effect to.</param>
     /// <param name="colors">The array of colors to create the gradient with.</param>
     /// <returns>The string with gradient effect.</returns>
-    public static string Gradient(string input, params Color[] colors) => Gradient(input, colors.AsSpan());
+    public static string Gradient(string input, params Color[] colors) => _enabled ?
+        Gradient(input, colors.AsSpan())
+        : input;
 
     /// <summary>
     /// Creates a gradient effect on the input string using the specified colors.
@@ -189,13 +157,9 @@ public static class PastelEx
     /// <param name="input">The input string to apply the gradient effect to.</param>
     /// <param name="colors">The span of colors to create the gradient with.</param>
     /// <returns>The string with gradient effect.</returns>
-    public static string Gradient(string input, in ReadOnlySpan<Color> colors)
-    {
-        if (!_enabled)
-            return input;
-
-        return Helper.CreateGradientEffect(input, ColorPlane.Foreground, colors);
-    }
+    public static string Gradient(string input, in ReadOnlySpan<Color> colors) => _enabled ?
+        Helper.CreateGradientEffect(input, ColorPlane.Foreground, colors)
+        : input;
 
     /// <summary>
     /// Creates a background gradient effect on the input string using the specified colors.
@@ -203,7 +167,9 @@ public static class PastelEx
     /// <param name="input">The input string to apply the background gradient effect to.</param>
     /// <param name="colors">The array of colors to create the background gradient with.</param>
     /// <returns>The input string with background gradient effect.</returns>
-    public static string GradientBg(string input, params Color[] colors) => GradientBg(input, colors.AsSpan());
+    public static string GradientBg(string input, params Color[] colors) => _enabled ?
+        GradientBg(input, colors.AsSpan())
+        : input;
 
     /// <summary>
     /// Creates a background gradient effect on the input string using the specified colors.
@@ -211,11 +177,99 @@ public static class PastelEx
     /// <param name="input">The input string to apply the background gradient effect to.</param>
     /// <param name="colors">The span of colors to create the background gradient with.</param>
     /// <returns>The input string with background gradient effect.</returns>
-    public static string GradientBg(string input, in ReadOnlySpan<Color> colors)
-    {
-        if (!_enabled)
-            return input;
+    public static string GradientBg(string input, in ReadOnlySpan<Color> colors) => _enabled ?
+        Helper.CreateGradientEffect(input, ColorPlane.Background, colors)
+        : input;
 
-        return Helper.CreateGradientEffect(input, ColorPlane.Background, colors);
+    internal static Color defaultForeground = Color.Empty;
+    internal static Color defaultBackground = Color.Empty;
+
+    /// <summary>
+    /// Specifies default Console foreground color to be used.
+    /// </summary>
+    public static Color Foreground
+    {
+        get => defaultForeground;
+        set
+        {
+            defaultForeground = value;
+            Formatter.foregroundFormat = Formatter.GetRgbColorFormat(value, ColorPlane.Foreground);
+
+            if (_enabled && value != default)
+                Console.Write(Formatter.DefaultFormat);
+        }
     }
+
+    /// <summary>
+    /// Specifies default Console background color to be used.
+    /// </summary>
+    public static Color Background
+    {
+        get => defaultBackground;
+        set
+        {
+            defaultBackground = value;
+            Formatter.backgroundFormat = Formatter.GetRgbColorFormat(value, ColorPlane.Background);
+
+            if (_enabled && value != default)
+                Console.Write(Formatter.DefaultFormat);
+        }
+    }
+
+    /// <summary>
+    /// Specifies default Console text decorations to be used.
+    /// </summary>
+    public static DecorationList Decorations => Formatter.sharedDecorations;
+
+    /// <summary>
+    /// Clears Console buffer with applying background colors if supported.
+    /// </summary>
+    public static void ClearConsole()
+    {
+        Console.Clear();
+
+        if (_enabled)
+            Console.Write("\u001b[2J");
+    }
+
+    /// <summary>
+    /// Removes all default decorations and colors.
+    /// </summary>
+    public static void Reset()
+    {
+        Decorations.Clear();
+        Foreground = Color.Empty;
+        Background = Color.Empty;
+
+        if (_enabled)
+            Console.Write("\u001b[0m");
+        Console.ResetColor();
+    }
+
+    #region Old methods scheduled for removal in next version
+#pragma warning disable CS1591
+    [Obsolete("Use string.Fg() method instead")]
+    public static string Pastel(this string input, Color color) => Fg(input, color);
+    [Obsolete("Use string.Fg() method instead")]
+    public static string Pastel(this string input, ConsoleColor consoleColor) => Fg(input, consoleColor);
+    [Obsolete("Use string.Fg() method instead")]
+    public static string Pastel(this string input, byte color) => Fg(input, color);
+    [Obsolete("Use string.Fg() method instead")]
+    public static string Pastel(this string input, in ReadOnlySpan<char> hexColor) => Fg(input, hexColor);
+
+    [Obsolete("Use string.Bg() method instead")]
+    public static string PastelBg(this string input, Color color) => Bg(input, color);
+    [Obsolete("Use string.Bg() method instead")]
+    public static string PastelBg(this string input, ConsoleColor consoleColor) => Bg(input, consoleColor);
+    [Obsolete("Use string.Bg() method instead")]
+    public static string PastelBg(this string input, byte color) => Bg(input, color);
+    [Obsolete("Use string.Bg() method instead")]
+    public static string PastelBg(this string input, in ReadOnlySpan<char> hexColor) => Bg(input, hexColor);
+
+    [Obsolete("Use string.Deco() method instead")]
+    public static string PastelDeco(this string input, Decoration decoration) => Deco(input, decoration);
+    [Obsolete("Use string.Deco() method instead")]
+    public static string PastelDeco(this string input, params Decoration[] decorations) => Deco(input, decorations);
+#pragma warning restore CS1591
+    #endregion
 }

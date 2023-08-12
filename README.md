@@ -1,34 +1,50 @@
-# PastelEx
-Highly inspired by the syntax of [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon). Without these libraries, PastelEx wouldn't exist.
-Tested on both Windows and Linux.
+﻿![PastelEx Logo](./pastelex-logo.png)
 
-# Inspiration
-Adding ANSI color codes can be a confusing and challenging task to do manually. This library makes coloring or styling console output a very easy task.
+> ⚠️ **API has changed a bit in this version (1.0.2)!** One of changes are methods `Pastel()`, `PastelBg()` and `PastelDeco()`, they are now just `Fg`, `Bg` and `Deco`. Old methods will be removed in future, please switch to the new methods!
 
-# How It Works
-Using a simple syntax, like `"My string".Pastel(Color.Red)`, wraps your string in a special Unicode character sequence that instructs the terminal: "This text should be colored."
-You can also do it manually, but using this library offers you a few more benefits: ease of use and automatic checks for terminal support of ANSI color codes.
+# PastelEx 💥
+**Elevate Your Console Output with Colors and Styles**
 
-# Any Performance Benefits?
-A string in C# is immutable, meaning you can't modify it once created. However, PastelEx is efficient enough to help you create a visually appealing console output without requiring a lot of memory allocation.
-PastelEx doesn't allocate any memory when you're not nesting colors. Below, you can see a benchmark with nested colors.
+> Inspired by the syntax of [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon). PastelEx wouldn't exist without these incredible libraries.
 
+Tested and Compatible with Windows and Linux terminals.
+
+## 🎨 Inspiration
+Adding ANSI color codes can be a confusing and challenging task to do manually. PastelEx simplifies the process of coloring and styling console output.
+
+## ⚙️ How It Works
+Using a simple syntax, like `"Hello, World!".Fg(Color.White)`, wraps your string in a special Unicode character sequence that instructs the terminal to apply color. This library offers benefits such as ease of use and automatic checks for terminal ANSI color support.
+
+🔥 **Example:**
+```csharp
+using PastelExtended;
+using System.Drawing;
+
+Console.WriteLine($"Look, this text is {"colored".Fg("#ffff00")}!".Fg(Color.White));
+Console.WriteLine(PastelEx.Gradient("And this one is gradient!", new[] { Color.Magenta, Color.Aqua }));
 ```
-|   Method |        Mean |     Error |    StdDev |   Gen0 | Allocated |
-|--------- |------------:|----------:|----------:|-------:|----------:|
-|   Pastel | 2,551.55 ns | 38.065 ns | 35.606 ns | 1.2665 |    2656 B | <-- worst
-| PastelEx |    25.78 ns |  0.550 ns |  0.715 ns | 0.0382 |      80 B | <-- best
-|   Crayon |   453.23 ns |  8.953 ns | 12.254 ns | 0.6266 |    1312 B |
+
+# ⚡ Performance Benefits
+PastelEx efficiently enhances console output without excessive memory allocation. The library performs exceptionally well in comparison to alternatives.
+
+Benchmark (lower values are better):
+```
+|   Method  |      Mean   |   Gen 0   | Allocated |
+|-----------|------------:|----------:|----------:|
+|   Pastel  | 2,551.55 ns |  1.2665   |   2656 B  |
+| PastelEx  |    25.78 ns |  0.0382   |     80 B  |
+|   Crayon  |   453.23 ns |  0.6266   |   1312 B  |
 ```
 
-PastelEx performs the best in terms of performance and memory allocation!
+# 🧪 Tested and Verified
+PastelEx is rigorously tested to ensure accurate and intended color and style rendering. It dynamically checks and adapts to your terminal's ANSI color support, providing a seamless experience.
 
-## Has It Been Tested?
-The code itself is tested to ensure that it outputs colors and styles as the programmer intended.
-However, you should never explicitly call `PastelEx.Enable()`! For Windows, PastelEx automatically checks on the first use if the current terminal can display ANSI color codes. It tries to enable them if necessary; otherwise, it disables PastelEx to show non-colored output.
-Tested on both Windows and Linux.
+**Note:** Avoid explicit calls to `PastelEx.Enable()`. PastelEx handles ANSI color code display automatically.
 
-# NO_COLOR
-This library checks whether the user has explicitly disabled ANSI color codes by adding an environment variable `NO_COLOR` with any value. If this environment variable exists, color output will automatically be disabled.
+# 🚫 NO_COLOR Compatibility
+PastelEx respects the `NO_COLOR` environment variable. If set, it disables color output to accommodate user preferences.
+
+# 🚧 What PastelEx Doesn't Offer
+While PastelEx empowers your console output, it doesn't provide tools for creating complex Console UI, panels, or tables.
 
 ![Example Image](img/example1.png)
