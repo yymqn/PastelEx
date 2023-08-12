@@ -1,4 +1,4 @@
-﻿![PastelEx Logo](./pastelex-logo.png)
+![Logo](https://github.com/k-iro/PastelEx/blob/master/pastelex-logo.png?raw=true)
 
 > ⚠️ **API has changed a bit in this version (1.0.2)!** One of changes are methods `Pastel()`, `PastelBg()` and `PastelDeco()`, they are now just `Fg`, `Bg` and `Deco`. Old methods will be removed in future, please switch to the new methods!
 
@@ -47,4 +47,4 @@ PastelEx respects the `NO_COLOR` environment variable. If set, it disables color
 # 🚧 What PastelEx Doesn't Offer
 While PastelEx empowers your console output, it doesn't provide tools for creating complex Console UI, panels, or tables.
 
-![Example Image](img/example1.png)
+![Example Image](https://github.com/k-iro/PastelEx/blob/master/img/example1.png?raw=true)
