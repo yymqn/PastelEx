@@ -40,6 +40,11 @@ public enum Decoration : byte
     Invert = 7,
 
     /// <summary>
+    /// Represents hidden text. Not widely supported.
+    /// </summary>
+    Conceal = 8,
+
+    /// <summary>
     /// Represents strikethrough text.
     /// </summary>
     Strikethrough = 9,

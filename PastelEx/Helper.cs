@@ -5,34 +5,6 @@ using System.Text;
 namespace PastelExtended;
 internal class Helper
 {
-    public static int LastIndexOf(in ReadOnlySpan<char> source, in ReadOnlySpan<char> value)
-    {
-        int position = source.Length - 1;
-        int len = value.Length - 1;
-        int matches = 0;
-
-        for (int i = position; i >= 0; i--)
-        {
-            if (source[i] == value[len])
-            {
-                // Found first char matching
-                matches++;
-                len--;
-            }
-            else if (matches > 0)
-            {
-                // False match, continue
-                len = value.Length - 1;
-                matches = 0;
-            }
-
-            if (value.Length - 1 == matches)
-                return i;
-        }
-
-        return -1;
-    }
-
     public static Color ParseFromHex(in ReadOnlySpan<char> hexString)
     {
         if (hexString.Length < 3)

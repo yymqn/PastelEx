@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace PastelExtended;
+﻿namespace PastelExtended;
 /// <summary>
 /// Represents a list containing text decorations.
 /// </summary>
@@ -30,7 +23,7 @@ public class DecorationList
             }
 
             updated = true;
-        }            
+        }
     }
 
     /// <summary>
@@ -65,8 +58,11 @@ public class DecorationList
     /// </summary>
     public void Clear()
     {
-        decorationList.Clear();
-        updated = true;
+        lock (_sync)
+        {
+            decorationList.Clear();
+            updated = true;
+        }
     }
 
     private bool updated = false;
@@ -76,7 +72,7 @@ public class DecorationList
     {
         lock (_sync)
         {
-            if (updated)
+            if (!updated)
             {
                 return cache;
             }

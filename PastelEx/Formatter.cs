@@ -10,9 +10,9 @@ internal class Formatter
     private const string _endCode = "\u001b[0m";
     internal static string DefaultFormat => $"{_endCode}{foregroundFormat}{backgroundFormat}{sharedDecorations.ToString()}";
 
-    public static string CloseNestedString(in ReadOnlySpan<char> text, in ReadOnlySpan<char> format)
+    public static string CloseNestedString(string text, in ReadOnlySpan<char> format)
     {
-        return text.ToString().
+        return text.
             Replace(DefaultFormat, $"{DefaultFormat}{format}");
     }
 
