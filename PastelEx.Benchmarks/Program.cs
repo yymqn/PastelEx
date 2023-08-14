@@ -13,21 +13,21 @@ using System.Drawing;
 
     |                                     Method |         Mean |      Error |     StdDev |   Gen0 | Allocated |
     |------------------------------------------- |-------------:|-----------:|-----------:|-------:|----------:|
-    |            Pastel_SimpleColorization_Color |   628.842 ns |  4.4861 ns |  4.1963 ns | 0.2403 |     504 B |
-    |     Pastel_SimpleColorization_ConsoleColor |   624.715 ns |  3.3022 ns |  2.9273 ns | 0.2403 |     504 B |
-    |   Pastel_SimpleColorization_HexStringColor |   666.525 ns |  2.9819 ns |  2.4900 ns | 0.2594 |     544 B |
-    |                        Pastel_Nested_Color | 1,985.768 ns |  9.5572 ns |  8.9398 ns | 0.8125 |    1705 B |
-    |                 Pastel_Nested_ConsoleColor | 1,990.269 ns | 24.3285 ns | 18.9941 ns | 0.8125 |    1705 B |
-    |               Pastel_Nested_HexStringColor | 2,122.618 ns | 41.4472 ns | 40.7067 ns | 0.8507 |    1785 B |
-    |          PastelEx_SimpleColorization_Color |     4.030 ns |  0.1042 ns |  0.1200 ns |      - |         - |
-    |   PastelEx_SimpleColorization_ConsoleColor |     1.377 ns |  0.0702 ns |  0.0657 ns |      - |         - |
-    | PastelEx_SimpleColorization_HexStringColor |     3.041 ns |  0.0949 ns |  0.0842 ns |      - |         - |
-    |                      PastelEx_Nested_Color |    24.482 ns |  0.1689 ns |  0.1580 ns | 0.0382 |      80 B |
-    |               PastelEx_Nested_ConsoleColor |    18.630 ns |  0.1168 ns |  0.1035 ns | 0.0382 |      80 B |
-    |             PastelEx_Nested_HexStringColor |    24.961 ns |  0.1878 ns |  0.1569 ns | 0.0382 |      80 B |
-    |                     PastelEx_SimpleStyling |     1.271 ns |  0.0231 ns |  0.0205 ns |      - |         - |
-    |                     PastelEx_NestedStyling |    18.276 ns |  0.0572 ns |  0.0477 ns | 0.0306 |      64 B |
-    |                   PastelEx_SimpleGradience |     1.519 ns |  0.0084 ns |  0.0074 ns |      - |         - |
+    |            Pastel_SimpleColorization_Color |   634.269 ns |  7.9934 ns |  7.4770 ns | 0.2403 |     504 B |
+    |     Pastel_SimpleColorization_ConsoleColor |   653.720 ns | 13.0893 ns | 21.5060 ns | 0.2403 |     504 B |
+    |   Pastel_SimpleColorization_HexStringColor |   713.199 ns | 13.8742 ns | 18.5216 ns | 0.2594 |     544 B |
+    |                        Pastel_Nested_Color | 2,088.252 ns |  9.2292 ns |  8.6330 ns | 0.8125 |    1705 B |
+    |                 Pastel_Nested_ConsoleColor | 2,062.392 ns | 14.6417 ns | 12.2265 ns | 0.8125 |    1705 B |
+    |               Pastel_Nested_HexStringColor | 2,185.443 ns | 18.4817 ns | 16.3835 ns | 0.8507 |    1785 B |
+    |          PastelEx_SimpleColorization_Color |     3.852 ns |  0.0252 ns |  0.0224 ns |      - |         - |
+    |   PastelEx_SimpleColorization_ConsoleColor |     1.056 ns |  0.0409 ns |  0.0383 ns |      - |         - |
+    | PastelEx_SimpleColorization_HexStringColor |     2.902 ns |  0.0735 ns |  0.0688 ns |      - |         - |
+    |                      PastelEx_Nested_Color |    29.303 ns |  0.4584 ns |  0.4288 ns | 0.0382 |      80 B |
+    |               PastelEx_Nested_ConsoleColor |    21.367 ns |  0.3201 ns |  0.2499 ns | 0.0382 |      80 B |
+    |             PastelEx_Nested_HexStringColor |    30.726 ns |  0.6725 ns |  1.2957 ns | 0.0382 |      80 B |
+    |                     PastelEx_SimpleStyling |     1.378 ns |  0.0785 ns |  0.0696 ns |      - |         - |
+    |                     PastelEx_NestedStyling |    21.551 ns |  0.1874 ns |  0.1753 ns | 0.0306 |      64 B |
+    |                   PastelEx_SimpleGradience |     1.262 ns |  0.0395 ns |  0.0350 ns |      - |         - |
 
 */
 
