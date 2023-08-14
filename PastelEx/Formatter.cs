@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 
 namespace PastelExtended;
-internal class Formatter
+internal static class Formatter
 {
     internal static string foregroundFormat = string.Empty;
     internal static string backgroundFormat = string.Empty;

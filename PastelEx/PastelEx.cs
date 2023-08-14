@@ -9,7 +9,9 @@ public static class PastelEx
 {
     static PastelEx()
     {
-        if (Environment.GetEnvironmentVariable("NO_COLOR") is null &&
+        _noColor = Helper.IsNoColor();
+
+        if (!_noColor &&
             (_supported = WinNative.EnableIfSupported()))
             Enable();
         else
@@ -18,14 +20,20 @@ public static class PastelEx
 
     internal static bool _enabled;
     private static readonly bool _supported;
+    private readonly static bool _noColor;
 
     /// <summary>
-    /// <see langword="true"/> if current terminal should support ANSI color codes; otherwise <see langword="false"/>
+    /// Checks whether the current terminal is capable of displaying ANSI color codes.
     /// </summary>
     public static bool IsSupported => _supported;
 
     /// <summary>
-    /// <see langword="true"/> if PastelEx is enabled; otherwise <see langword="false"/>
+    /// Verifies if the current user has explicitly disabled colored output.
+    /// </summary>
+    public static bool NoColor => _noColor;
+
+    /// <summary>
+    /// Returns <see langword="true"/> if PastelEx is enabled; otherwise, returns <see langword="false"/>.
     /// </summary>
     public static bool Enabled => _enabled;
 

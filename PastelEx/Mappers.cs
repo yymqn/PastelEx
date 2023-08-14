@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 
 namespace PastelExtended;
-internal class Mappers
+internal static class Mappers
 {
     private static readonly ImmutableDictionary<ConsoleColor, byte> foregroundConsoleColors = new Dictionary<ConsoleColor, byte>
     {
