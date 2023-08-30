@@ -5,10 +5,10 @@ internal static class Formatter
 {
     internal static string foregroundFormat = string.Empty;
     internal static string backgroundFormat = string.Empty;
-    internal static readonly DecorationList sharedDecorations = new();
+    internal static readonly DecorationCollection sharedDecorations = new();
 
-    private const string _endCode = "\u001b[0m";
-    internal static string DefaultFormat => $"{_endCode}{foregroundFormat}{backgroundFormat}{sharedDecorations.ToString()}";
+    private const string _resetCode = "\u001b[0m";
+    internal static string DefaultFormat => $"{_resetCode}{foregroundFormat}{backgroundFormat}{sharedDecorations.ToString()}";
 
     public static string CloseNestedString(string text, in ReadOnlySpan<char> format)
     {
@@ -22,6 +22,14 @@ internal static class Formatter
             return string.Empty;
 
         return $"\u001b[{(byte)plane};2;{color.R};{color.G};{color.B}m";
+    }
+
+    public static string GetDefaultColorFormat(ConsoleColor? consoleColor, ColorPlane plane)
+    {
+        if (!consoleColor.HasValue)
+            return string.Empty;
+
+        return $"\u001b[{Mappers.FromConsoleColor((ConsoleColor)consoleColor, plane)}m";
     }
 
     public static string ColorRgb(in ReadOnlySpan<char> text, Color color, ColorPlane plane)

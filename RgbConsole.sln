@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PastelEx.Example", "PastelE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PastelEx.Tests", "PastelEx.Tests\PastelEx.Tests.csproj", "{FE27B98C-6207-40B0-B713-C9F5D38CB516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastelEx.Benchmarks", "PastelEx.Benchmarks\PastelEx.Benchmarks.csproj", "{11DFA08D-34CC-4821-A895-59818485C7FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PastelEx.Benchmarks", "PastelEx.Benchmarks\PastelEx.Benchmarks.csproj", "{11DFA08D-34CC-4821-A895-59818485C7FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

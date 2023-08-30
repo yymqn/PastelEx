@@ -10,24 +10,26 @@ using System.Drawing;
     performance of the different methods. Please keep in mind that these results are based on a specific test environment
     and may vary on different machines or under different conditions.
 
+  * Benchmark results are updated with every new version!
 
-    |                                     Method |         Mean |      Error |     StdDev |   Gen0 | Allocated |
-    |------------------------------------------- |-------------:|-----------:|-----------:|-------:|----------:|
-    |            Pastel_SimpleColorization_Color |   634.269 ns |  7.9934 ns |  7.4770 ns | 0.2403 |     504 B |
-    |     Pastel_SimpleColorization_ConsoleColor |   653.720 ns | 13.0893 ns | 21.5060 ns | 0.2403 |     504 B |
-    |   Pastel_SimpleColorization_HexStringColor |   713.199 ns | 13.8742 ns | 18.5216 ns | 0.2594 |     544 B |
-    |                        Pastel_Nested_Color | 2,088.252 ns |  9.2292 ns |  8.6330 ns | 0.8125 |    1705 B |
-    |                 Pastel_Nested_ConsoleColor | 2,062.392 ns | 14.6417 ns | 12.2265 ns | 0.8125 |    1705 B |
-    |               Pastel_Nested_HexStringColor | 2,185.443 ns | 18.4817 ns | 16.3835 ns | 0.8507 |    1785 B |
-    |          PastelEx_SimpleColorization_Color |     3.852 ns |  0.0252 ns |  0.0224 ns |      - |         - |
-    |   PastelEx_SimpleColorization_ConsoleColor |     1.056 ns |  0.0409 ns |  0.0383 ns |      - |         - |
-    | PastelEx_SimpleColorization_HexStringColor |     2.902 ns |  0.0735 ns |  0.0688 ns |      - |         - |
-    |                      PastelEx_Nested_Color |    29.303 ns |  0.4584 ns |  0.4288 ns | 0.0382 |      80 B |
-    |               PastelEx_Nested_ConsoleColor |    21.367 ns |  0.3201 ns |  0.2499 ns | 0.0382 |      80 B |
-    |             PastelEx_Nested_HexStringColor |    30.726 ns |  0.6725 ns |  1.2957 ns | 0.0382 |      80 B |
-    |                     PastelEx_SimpleStyling |     1.378 ns |  0.0785 ns |  0.0696 ns |      - |         - |
-    |                     PastelEx_NestedStyling |    21.551 ns |  0.1874 ns |  0.1753 ns | 0.0306 |      64 B |
-    |                   PastelEx_SimpleGradience |     1.262 ns |  0.0395 ns |  0.0350 ns |      - |         - |
+
+    |                                     Method |         Mean |     Error |    StdDev |   Gen0 | Allocated |
+    |------------------------------------------- |-------------:|----------:|----------:|-------:|----------:|
+    |            Pastel_SimpleColorization_Color |   631.358 ns | 8.7994 ns | 8.2309 ns | 0.2403 |     504 B |
+    |     Pastel_SimpleColorization_ConsoleColor |   639.742 ns | 3.3789 ns | 3.1606 ns | 0.2403 |     504 B |
+    |   Pastel_SimpleColorization_HexStringColor |   689.632 ns | 5.8124 ns | 5.4369 ns | 0.2594 |     544 B |
+    |                        Pastel_Nested_Color | 2,013.374 ns | 4.1165 ns | 3.6492 ns | 0.8125 |    1705 B |
+    |                 Pastel_Nested_ConsoleColor | 2,214.842 ns | 9.3486 ns | 8.7447 ns | 0.8125 |    1705 B |
+    |               Pastel_Nested_HexStringColor | 2,095.999 ns | 5.3368 ns | 4.4564 ns | 0.8507 |    1785 B |
+    |          PastelEx_SimpleColorization_Color |     4.357 ns | 0.0343 ns | 0.0321 ns |      - |         - |
+    |   PastelEx_SimpleColorization_ConsoleColor |     2.315 ns | 0.0203 ns | 0.0190 ns |      - |         - |
+    | PastelEx_SimpleColorization_HexStringColor |     3.935 ns | 0.0520 ns | 0.0435 ns |      - |         - |
+    |                      PastelEx_Nested_Color |    26.588 ns | 0.1691 ns | 0.1581 ns | 0.0382 |      80 B |
+    |               PastelEx_Nested_ConsoleColor |    20.523 ns | 0.3256 ns | 0.2718 ns | 0.0382 |      80 B |
+    |             PastelEx_Nested_HexStringColor |    28.025 ns | 0.5471 ns | 0.4850 ns | 0.0382 |      80 B |
+    |                     PastelEx_SimpleStyling |     2.707 ns | 0.0322 ns | 0.0269 ns |      - |         - |
+    |                     PastelEx_NestedStyling |    22.820 ns | 0.4083 ns | 0.3619 ns | 0.0306 |      64 B |
+    |                   PastelEx_SimpleGradience |     2.297 ns | 0.0074 ns | 0.0066 ns |      - |         - |
 
 */
 

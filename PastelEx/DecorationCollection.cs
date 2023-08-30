@@ -2,9 +2,9 @@
 /// <summary>
 /// Represents a list containing text decorations.
 /// </summary>
-public class DecorationList
+public class DecorationCollection
 {
-    internal DecorationList() { }
+    internal DecorationCollection() { }
     readonly HashSet<Decoration> decorationList = new();
     private readonly object _sync = new();
 
@@ -17,12 +17,12 @@ public class DecorationList
         lock (_sync)
         {
             decorationList.Add(decoration);
-            if (PastelEx._enabled)
+            updated = true;
+
+            if (PastelEx.EnabledInternal && PastelEx.Settings.InstantRecolor)
             {
                 Console.Write(Formatter.DefaultFormat);
             }
-
-            updated = true;
         }
     }
 
@@ -36,12 +36,13 @@ public class DecorationList
         lock (_sync)
         {
             var value = decorationList.Remove(decoration);
-            if (value && PastelEx._enabled)
+            updated = true;
+
+            if (value && PastelEx.EnabledInternal && PastelEx.Settings.InstantRecolor)
             {
                 Console.Write(Formatter.DefaultFormat);
             }
 
-            updated = true;
             return value;
         }
     }
@@ -62,11 +63,21 @@ public class DecorationList
         {
             decorationList.Clear();
             updated = true;
+
+            if (PastelEx.EnabledInternal && PastelEx.Settings.InstantRecolor)
+            {
+                Console.Write(Formatter.DefaultFormat);
+            }
         }
     }
 
     private bool updated = false;
     private string cache = string.Empty;
+
+    /// <summary>
+    /// Total count of currently set decorations.
+    /// </summary>
+    public int Count => decorationList.Count;
 
     internal new string ToString()
     {

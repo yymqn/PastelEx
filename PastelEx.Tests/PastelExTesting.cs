@@ -6,8 +6,9 @@ namespace PastelEx.Tests;
 
 public class PastelExTesting
 {
-    static void Enable() => PastelExtended.PastelEx.Enable();
-    static void Disable() => PastelExtended.PastelEx.Disable();
+#if DEBUG
+    static void Enable() => PastelExtended.PastelEx.EnableTestingMode();
+    static void Disable() => PastelExtended.PastelEx.Settings.Enabled = false;
 
     const string END = $"{CSI}0m";
     const string CSI = "\u001b[";
@@ -142,4 +143,5 @@ public class PastelExTesting
         PastelExtended.PastelEx.Decorations.Clear();
     }
     #endregion
+#endif
 }
