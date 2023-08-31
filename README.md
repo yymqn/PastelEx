@@ -1,31 +1,42 @@
 ![Logo](https://github.com/k-iro/PastelEx/blob/master/pastelex-logo.png?raw=true)
 
-> ⚠️ **API has changed a bit in this version (1.0.2)!** One of changes are methods `Pastel()`, `PastelBg()` and `PastelDeco()`, they are now just `Fg`, `Bg` and `Deco`. Old methods will be removed in future, please switch to the new methods!
-
 # PastelEx 💥
-**Elevate Your Console Output with Colors and Styles**
+**Elevate Console Output with Colors and Styles**
 
-> Inspired by the syntax of [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon). PastelEx wouldn't exist without these incredible libraries.
+Simplify coloring console text with PastelEx, inspired by [Pastel](https://github.com/silkfire/Pastel) and [Crayon](https://github.com/riezebosch/crayon).
 
-Tested and Compatible with Windows and Linux terminals.
+Tested on Windows and Linux terminals.
+Download on [nuget](https://www.nuget.org/packages/PastelEx)!
 
 ## 🎨 Inspiration
-Adding ANSI color codes can be a confusing and challenging task to do manually. PastelEx simplifies the process of coloring and styling console output.
+This library simplifies the process of applying ANSI color codes to strings, mitigating several potential drawbacks:
+- If a terminal lacks ANSI support, the output might display the string with visible ANSI codes, as the terminal wouldn't recognize them as formatting instructions.
+- Manually composing ANSI codes can be intricate for humans, involving the need to write out each code explicitly.
 
 ## ⚙️ How It Works
-Using a simple syntax, like `"Hello, World!".Fg(Color.White)`, wraps your string in a special Unicode character sequence that instructs the terminal to apply color. This library offers benefits such as ease of use and automatic checks for terminal ANSI color support.
-
-🔥 **Example:**
-```csharp
+Example:
+```
 using PastelExtended;
 using System.Drawing;
 
-Console.WriteLine($"Look, this text is {"colored".Fg("#ffff00")}!".Fg(Color.White));
-Console.WriteLine(PastelEx.Gradient("And this one is gradient!", new[] { Color.Magenta, Color.Aqua }));
+Console.WriteLine($"This text is {"yellow".Fg("#ffff00")}!".Fg(Color.White));
+Console.WriteLine(PastelEx.Gradient("This text is gradient.", new[] { Color.Magenta, Color.Aqua }));
 ```
 
-# ⚡ Performance Benefits
-PastelEx efficiently enhances console output without excessive memory allocation. The library performs exceptionally well in comparison to alternatives.
+If needed or desired, you can modify PastelEx's behavior using the `PastelSettings` class.
+To adjust the settings, simply modify the `PastelEx.Settings` property.
+
+## ❓ When to Use
+For adding color or decoration in small console apps.
+
+## 🚫 NO_COLOR Compatibility
+Respects the `NO_COLOR` environment variable. If this variable exists with any value, colors and decorations will be disabled by default.
+
+## 🧪 Tested
+Tested for accurate rendering. If you find any issues, please report them via the [issues](https://github.com/k-iro/PastelEx/issues) page.
+
+## ⚡ Performance
+Efficient, minimal memory use.
 
 Benchmark (lower values are better):
 ```
@@ -35,16 +46,5 @@ Benchmark (lower values are better):
 | PastelEx  |    25.78 ns |  0.0382   |     80 B  |
 |   Crayon  |   453.23 ns |  0.6266   |   1312 B  |
 ```
-
-# 🧪 Tested and Verified
-PastelEx is rigorously tested to ensure accurate and intended color and style rendering. It dynamically checks and adapts to your terminal's ANSI color support, providing a seamless experience.
-
-**Note:** Avoid explicit calls to `PastelEx.Enable()`. PastelEx handles ANSI color code display automatically.
-
-# 🚫 NO_COLOR Compatibility
-PastelEx respects the `NO_COLOR` environment variable. If set, it disables color output to accommodate user preferences.
-
-# 🚧 What PastelEx Doesn't Offer
-While PastelEx empowers your console output, it doesn't provide tools for creating complex Console UI, panels, or tables.
 
 ![Example Image](https://github.com/k-iro/PastelEx/blob/master/img/example1.png?raw=true)
