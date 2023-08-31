@@ -9,6 +9,9 @@ public readonly struct CompactColor
     private Color? ColorType { get; init; } = null;
     private ConsoleColor? ConsoleColorType { get; init; } = null;
 
+    internal bool IsColor => ColorType is not null && ConsoleColorType is null;
+    internal bool IsConsoleColor => ConsoleColorType is not null && ColorType is null;
+
     /// <summary>
     /// Creates a new default instance of this object.
     /// </summary>

@@ -1,3 +1,7 @@
+## Version 1.0.4
+### Fixes
+- Fixed that you had to explicitly cast CompactColor into one of Color or ConsoleColor, when using Fg() and Bg() methods.
+
 ## Version 1.0.3
 ### Fixes
 - Fixed DecorationCollection not applying colors properly to the console.

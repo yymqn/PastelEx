@@ -55,25 +55,6 @@ public static class PastelEx
     public static bool NoColor { get; private set; }
 
     /// <summary>
-    /// Returns <see langword="true"/> if PastelEx is enabled; otherwise, returns <see langword="false"/>.
-    /// </summary>
-    [Obsolete("Scheduled for removal. Use PastelEx.Settings instead.")]
-    public static bool Enabled => EnabledInternal;
-
-    /// <summary>
-    /// Enables any future console output colors or styles.<br/>
-    /// </summary>
-    /// <remarks>Avoid calling this method to prevent unintended console styling activation on unsupported terminals.</remarks>
-    [Obsolete("Scheduled for removal. Use PastelEx.Settings instead.")]
-    public static void Enable() => Settings.Enabled = true;
-
-    /// <summary>
-    /// Disables any future console output colors or styles.<br/>
-    /// </summary>
-    [Obsolete("Scheduled for removal. Use PastelEx.Settings instead.")]
-    public static void Disable() => Settings.Enabled = false;
-
-    /// <summary>
     /// Colorizes the input string using the specified RGB color.
     /// </summary>
     /// <param name="input">The input string to be colorized.</param>
@@ -114,6 +95,17 @@ public static class PastelEx
         : input;
 
     /// <summary>
+    /// Colorizes the foreground of the input string using the specified <see cref="CompactColor"/> struct.
+    /// </summary>
+    /// <param name="input">The input string to be colorized.</param>
+    /// <param name="compactColor">The <see cref="CompactColor"/> to be used with set value.</param>
+    /// <returns>The colorized input string.</returns>
+    public static string Fg(this string input, CompactColor compactColor) => compactColor.IsColor ?
+        input.Fg((Color)compactColor) :
+        compactColor.IsConsoleColor ? input.Fg((ConsoleColor)compactColor) :
+        input;
+
+    /// <summary>
     /// Colorizes the background of the input string using the specified RGB color.
     /// </summary>
     /// <param name="input">The input string to be colorized.</param>
@@ -152,6 +144,17 @@ public static class PastelEx
     public static string Bg(this string input, in ReadOnlySpan<char> hexColor) => EnabledInternal ?
         $"{Formatter.DefaultFormat}{Formatter.ColorRgb(input, Helper.ParseFromHex(hexColor), ColorPlane.Background)}"
         : input;
+
+    /// <summary>
+    /// Colorizes the background of the input string using the specified <see cref="CompactColor"/> struct.
+    /// </summary>
+    /// <param name="input">The input string to be colorized.</param>
+    /// <param name="compactColor">The <see cref="CompactColor"/> to be used with set value.</param>
+    /// <returns>The input string with background colorized.</returns>
+    public static string Bg(this string input, CompactColor compactColor) => compactColor.IsColor ?
+        input.Bg((Color)compactColor) :
+        compactColor.IsConsoleColor ? input.Bg((ConsoleColor)compactColor) :
+        input;
 
     /// <summary>
     /// Decorates the input string with the specified text decoration.
