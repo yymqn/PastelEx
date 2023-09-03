@@ -7,7 +7,7 @@ internal static class Helper
 {
     const string NO_COLOR = "NO_COLOR";
     public static bool IsNoColor() => Enum.GetValues(typeof(EnvironmentVariableTarget))
-            .Cast<EnvironmentVariableTarget>()
+            .OfType<EnvironmentVariableTarget>()
             .Any(target => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(NO_COLOR, target)));
 
     public static Color ParseFromHex(in ReadOnlySpan<char> hexString)
@@ -115,7 +115,7 @@ internal static class Helper
             unchecked
             {
                 byte rAverage = (byte)(rMin + (rMax - rMin) * i / steps);
-                byte gAverage = (byte)(gMin + (int)((gMax - gMin) * i / steps));
+                byte gAverage = (byte)(gMin + (gMax - gMin) * i / steps);
                 byte bAverage = (byte)(bMin + (bMax - bMin) * i / steps);
                 output[i] = Color.FromArgb(rAverage, gAverage, bAverage);
             }

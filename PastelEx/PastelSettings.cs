@@ -22,4 +22,14 @@ public sealed class PastelSettings
     /// effect on the console output.
     /// </summary>
     public bool Enabled { get; set; }
+
+    /// <summary>
+    /// A color palette to be used for coloring the console. If the color type you use does not match the required palette,
+    /// it will be automatically converted into the nearest opposite color.
+    /// </summary>
+    /// <remarks>
+    /// If you're using both <see cref="System.Drawing.Color"/> and <see cref="ConsoleColor"/>, then you might consider
+    /// changing this to one of <see cref="ColorPalette.Color"/> or <see cref="ColorPalette.ConsoleColor"/>.
+    /// </remarks>
+    public ColorPalette Palette { get; set; } = ColorPalette.Both;
 }

@@ -1,4 +1,4 @@
-![Logo](https://github.com/k-iro/PastelEx/blob/master/pastelex-logo.png?raw=true)
+![Logo](https://raw.githubusercontent.com/k-iro/PastelEx/master/img/logo.png)
 
 # PastelEx 💥
 **Elevate Console Output with Colors and Styles**
@@ -47,4 +47,4 @@ Benchmark (lower values are better):
 |   Crayon  |   453.23 ns |  0.6266   |   1312 B  |
 ```
 
-![Example Image](https://github.com/k-iro/PastelEx/blob/master/img/example1.png?raw=true)
+![Example Image](https://raw.githubusercontent.com/k-iro/PastelEx/master/img/example.png)

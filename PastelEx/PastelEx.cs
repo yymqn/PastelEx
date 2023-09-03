@@ -75,16 +75,6 @@ public static class PastelEx
         : input;
 
     /// <summary>
-    /// Colorizes the input string using the specified 8-bit console color.
-    /// </summary>
-    /// <param name="input">The input string to be colorized.</param>
-    /// <param name="color">The 8-bit console color to apply to the text.</param>
-    /// <returns>The colorized input string.</returns>
-    public static string Fg(this string input, byte color) => EnabledInternal ?
-        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Foreground)}"
-        : input;
-
-    /// <summary>
     /// Colorizes the input string using the specified hex color value.
     /// </summary>
     /// <param name="input">The input string to be colorized.</param>
@@ -123,16 +113,6 @@ public static class PastelEx
     /// <returns>The input string with background colorized.</returns>
     public static string Bg(this string input, ConsoleColor consoleColor) => EnabledInternal ?
         $"{Formatter.DefaultFormat}{Formatter.ColorDefault(input, consoleColor, ColorPlane.Background)}"
-        : input;
-
-    /// <summary>
-    /// Colorizes the background of the input string using the specified 8-bit console color.
-    /// </summary>
-    /// <param name="input">The input string to be colorized.</param>
-    /// <param name="color">The 8-bit console color to apply to the background.</param>
-    /// <returns>The input string with background colorized.</returns>
-    public static string Bg(this string input, byte color) => EnabledInternal ?
-        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Background)}"
         : input;
 
     /// <summary>

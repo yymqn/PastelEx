@@ -1,50 +1,49 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <RootNamespace>PastelExtended</RootNamespace>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>PastelEx</Title>
-    <Authors>kiiro</Authors>
-    <Company />
-    <Description>PastelEx makes coloring console output easy! It’s a lightweight and extended version of Pastel.</Description>
-    <PackageIcon>pastelex-logo.png</PackageIcon>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl></PackageProjectUrl>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.0.4</Version>
-    <RepositoryUrl>https://github.com/k-iro/PastelEx</RepositoryUrl>
-    <PackageReleaseNotes>New methods and properties (and simplified method names)!
-NOTE: Old methods are marked as obsolete now.</PackageReleaseNotes>
-    <PackageTags>colors;colours;console colors;ansi colors;consolecolor;rgb;colorful;colorization;console;pastel;coloring;colorization;colored;color;colour;foreground;background;decorations</PackageTags>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>PastelExtended</RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>PastelEx</Title>
+		<Authors>kiiro</Authors>
+		<Company />
+		<Description>PastelEx makes coloring console output easy! It’s a lightweight and extended version of Pastel.</Description>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl></PackageProjectUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Version>1.0.4</Version>
+		<RepositoryUrl>https://github.com/k-iro/PastelEx</RepositoryUrl>
+		<PackageReleaseNotes>Check the changelog on the github for latest changes.</PackageReleaseNotes>
+		<PackageTags>colors;colours;console colors;ansi colors;consolecolor;rgb;colorful;colorization;console;pastel;coloring;colorization;colored;color;colour;foreground;background;decorations</PackageTags>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\pastelex-logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\logo.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>
