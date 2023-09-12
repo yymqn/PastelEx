@@ -46,22 +46,6 @@ public class PastelExTesting
         Assert.Equal($"{END}{CSI}107m{MESSAGE}{END}",
             MESSAGE.Bg(ConsoleColor.White));
     }
-
-    [Fact]
-    public void SimpleColoring_Fg_ByteColor()
-    {
-        Enable();
-        Assert.Equal($"{END}{CSI}38;5;69m{MESSAGE}{END}",
-            MESSAGE.Fg(69));
-    }
-
-    [Fact]
-    public void SimpleColoring_Bg_ByteColor()
-    {
-        Enable();
-        Assert.Equal($"{END}{CSI}48;5;69m{MESSAGE}{END}",
-            MESSAGE.Bg(69));
-    }
     #endregion
 
     #region Nested

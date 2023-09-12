@@ -6,8 +6,7 @@ namespace PastelExtended;
 internal static class Helper
 {
     const string NO_COLOR = "NO_COLOR";
-    public static bool IsNoColor() => Enum.GetValues(typeof(EnvironmentVariableTarget))
-            .OfType<EnvironmentVariableTarget>()
+    public static bool IsNoColor() => Enum.GetValues<EnvironmentVariableTarget>()
             .Any(target => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(NO_COLOR, target)));
 
     public static Color ParseFromHex(in ReadOnlySpan<char> hexString)

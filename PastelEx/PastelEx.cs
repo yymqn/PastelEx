@@ -196,6 +196,7 @@ public static class PastelEx
         Helper.CreateGradientEffect(input, ColorPlane.Background, colors)
         : input;
 
+    private const string eraseLine = "\u001b[2K";
     internal static CompactColor defaultForeground = default;
     internal static CompactColor defaultBackground = default;
 
@@ -243,20 +244,24 @@ public static class PastelEx
     public static DecorationCollection Decorations => Formatter.sharedDecorations;
 
     /// <summary>
-    /// Clears Console buffer with applying background colors if supported.
+    /// Clears Console buffer.
     /// </summary>
-    public static void ClearConsole()
+    public static void Clear()
     {
-        Console.Clear();
+        if (!EnabledInternal)
+        {
+            Console.Clear();
+            return;
+        }
 
-        if (EnabledInternal)
-            Console.Write("\u001b[2J");
+        Console.Write($"\u001bc{Formatter.DefaultFormat}\u001b[J");
     }
 
     /// <summary>
     /// Refills current console buffer with empty chars. This will remove any old text, but refills entire background with current
     /// default <see cref="Background"/> color.
     /// </summary>
+    [Obsolete("Use PastelEx.Clear instead. This method flickers.")]
     public static void Refill()
     {
         if (EnabledInternal)
@@ -266,9 +271,9 @@ public static class PastelEx
     }
 
     /// <summary>
-    /// Removes all default colors and decorations.
+    /// Removes all default colors and decorations, resets console to it's defaults.
     /// </summary>
-    public static void Reset()
+    public static void ResetPalette()
     {
         Decorations.Clear();
         Foreground = Color.Empty;
@@ -277,5 +282,65 @@ public static class PastelEx
         if (EnabledInternal && Settings.InstantRecolor)
             Console.Write("\u001b[0m");
         Console.ResetColor();
+    }
+
+    /// <summary>
+    /// Erases current line with moving cursor to the beginning of the line.
+    /// </summary>
+    public static void EraseLine()
+    {
+        if (EnabledInternal)
+            Console.Write($"{eraseLine}\r");
+    }
+
+    /// <summary>
+    /// Erases current line with moving cursor to the beginning of the line. The line will be overwritten to the string in the span.
+    /// </summary>
+    public static void EraseLine(ReadOnlySpan<char> newText)
+    {
+        if (EnabledInternal)
+            Console.Write($"{eraseLine}\r{newText}");
+    }
+
+    private static readonly bool _redirectedOutput = Console.IsOutputRedirected;
+
+    /// <summary>
+    /// Saves current console buffer and creates a new one. After the action has completed with of without any exception,
+    /// old console buffer will be restored.
+    /// </summary>
+    /// <param name="action">An action to be performed on the alternate screen.</param>
+    /// <remarks>Might not be supported on every terminal. This method is not thread safe and
+    /// shouldn't be called multiple times at once!</remarks>
+    public static void AlternateScreen(Action action)
+    {
+        if (!EnabledInternal)
+        {
+            action();
+            return;
+        }
+
+        var (x, y) = (0, 0);
+        if (!_redirectedOutput)
+        {
+            x = Console.CursorLeft;
+            y = Console.CursorTop;
+            Console.SetCursorPosition(0, 0);
+        }
+
+        try
+        {
+            Console.Write("\u001b[?1049h");
+            action();
+        }
+        finally
+        {
+            Console.Write("\u001b[?1049l");
+
+            if (!_redirectedOutput)
+            {
+                Console.CursorLeft = x;
+                Console.CursorTop = y;
+            }
+        }
     }
 }

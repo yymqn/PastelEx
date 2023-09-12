@@ -1,6 +1,8 @@
 ## Version 1.0.5
 ### News
 - Removed support for 8bit colors.
+- New PastelEx.Clear method (doesn't flicker)
+- PastelEx.Refill is now obsolete, use PastelEx.Clear instead!
 
 ## Version 1.0.4
 ### Fixes
