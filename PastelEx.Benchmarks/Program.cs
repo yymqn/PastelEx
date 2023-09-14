@@ -41,7 +41,7 @@ Console.Read();
 #pragma warning disable CA1822
 public class Benchmark
 #pragma warning restore CA1050
-{/*
+{
     #region Pastel
     [Benchmark]
     public string Pastel_SimpleColorization_Color() => ConsoleExtensions.Pastel("This is my colorized string", Color.Aqua);
@@ -57,7 +57,7 @@ public class Benchmark
     [Benchmark]
     public string Pastel_Nested_HexStringColor() => ConsoleExtensions.Pastel($"This is {ConsoleExtensions.PastelBg("my colorized", "#ffffff")} string", "#00ffff");
     #endregion
-    */
+    
     #region PastelEx
     [Benchmark]
     public string PastelEx_SimpleColorization_Color() => PastelEx.Fg("This is my colorized string", Color.Aqua);
@@ -73,7 +73,7 @@ public class Benchmark
     [Benchmark]
     public string PastelEx_Nested_HexStringColor() => PastelEx.Fg($"This is {PastelEx.Bg("my colorized", "#ffffff")} string", "#00ffff");
     #endregion
-/*
+
     #region Other PastelEx features
     [Benchmark]
     public string PastelEx_SimpleStyling() => PastelEx.Deco("This text is cool!", Decoration.Italic);
@@ -84,6 +84,6 @@ public class Benchmark
     [Benchmark]
     public string PastelEx_SimpleGradience() => PastelEx.Gradient($"This text will be gradient ...", gradientColors);
 
-    #endregion*/
+    #endregion
 }
 #pragma warning restore CA1822
