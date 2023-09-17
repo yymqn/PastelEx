@@ -22,7 +22,7 @@ internal static partial class WinNative
 
     internal static bool EnableIfSupported()
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (PastelEx.IsWindows)
         {
             var iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
             if (iStdOut == IntPtr.Zero)

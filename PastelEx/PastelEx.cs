@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 #if DEBUG
 [assembly: InternalsVisibleTo("PastelEx.Tests")]
@@ -243,6 +244,9 @@ public static class PastelEx
     /// </summary>
     public static DecorationCollection Decorations => Formatter.sharedDecorations;
 
+    static readonly bool _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    internal static bool IsWindows => _isWindows;
+
     /// <summary>
     /// Clears Console buffer.
     /// </summary>
@@ -251,6 +255,20 @@ public static class PastelEx
         if (!EnabledInternal)
         {
             Console.Clear();
+            return;
+        }
+
+        if (IsWindows)
+        {
+#pragma warning disable CA1416
+            var cursorVisible = Console.CursorVisible;
+            var cursorSize = Console.CursorSize;
+
+            Console.Write($"\u001bc{Formatter.DefaultFormat}\u001b[J");
+
+            Console.CursorVisible = cursorVisible;
+            Console.CursorSize = cursorSize;
+#pragma warning restore CA1416
             return;
         }
 
@@ -290,7 +308,18 @@ public static class PastelEx
     public static void EraseLine()
     {
         if (EnabledInternal)
+        {
             Console.Write($"{eraseLine}\r");
+        }
+        else
+        {
+            if (_redirectedOutput)
+                return;
+
+            var top = Console.CursorTop;
+            Console.Write($"\r{new string(' ', Console.WindowWidth)}");
+            Console.SetCursorPosition(0, top);
+        }
     }
 
     /// <summary>
@@ -299,7 +328,23 @@ public static class PastelEx
     public static void EraseLine(ReadOnlySpan<char> newText)
     {
         if (EnabledInternal)
+        {
             Console.Write($"{eraseLine}\r{newText}");
+        }
+        else
+        {
+            if (_redirectedOutput)
+            {
+                Console.Out.Write(newText);
+                return;
+            }
+
+            var top = Console.CursorTop;
+            Console.Write($"\r{new string(' ', Console.WindowWidth)}");
+            Console.SetCursorPosition(0, top);
+            Console.Out.Write(newText);
+            Console.SetCursorPosition(0, top);
+        }
     }
 
     private static readonly bool _redirectedOutput = Console.IsOutputRedirected;
