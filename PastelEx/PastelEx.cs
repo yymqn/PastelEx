@@ -289,6 +289,14 @@ public static class PastelEx
     }
 
     /// <summary>
+    /// Gets informations of the string, like it's original length without any formats.
+    /// </summary>
+    /// <param name="input">The string which have been modified by PastelEx.</param>
+    /// <returns>The information of the string.</returns>
+    public static StringInformation GetInformation(string input) =>
+        new(input);
+
+    /// <summary>
     /// Removes all default colors and decorations, resets console to it's defaults.
     /// </summary>
     public static void ResetPalette()

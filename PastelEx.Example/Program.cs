@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 
+Console.WriteLine(PastelEx.GetInformation($"Modified {"string".Bg(Color.Orange)}!".Fg(Color.Aqua).Deco(Decoration.Bold)).OriginalLength);
+
 // Supports default console colors and RGB colors even specified as hex string!
 // Allowed hex string formats may or may not start with one '#' and should contain 3 hexadecimal
 // chars #RGB or 6 hexadecimal chars #RRGGBB. You can also use System.Drawing.Color.

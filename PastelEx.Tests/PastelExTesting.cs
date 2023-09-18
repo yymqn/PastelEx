@@ -127,5 +127,13 @@ public class PastelExTesting
         PastelExtended.PastelEx.Decorations.Clear();
     }
     #endregion
+
+    #region Other things
+    [Fact]
+    public void StringInfo_OriginalLength()
+    {
+        Assert.Equal(16, PastelExtended.PastelEx.GetInformation($"Modified {"string".Bg(Color.Orange)}!".Fg(Color.Aqua).Deco(Decoration.Bold)).OriginalLength);
+    }
+    #endregion
 #endif
 }
