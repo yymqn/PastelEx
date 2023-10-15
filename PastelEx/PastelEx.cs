@@ -15,13 +15,13 @@ public static class PastelEx
     static PastelEx()
     {
         Settings = new();
-        NoColor = Helper.IsNoColor();
-
-        if (!NoColor &&
-            (Supported = WinNative.EnableIfSupported()))
-            Settings.Enabled = true;
-        else
+        NoColor = EnvironmentDetector.ColorsDisabled;
+        if (NoColor)
+        {
             Settings.Enabled = false;
+        }
+        Supported = WinNative.EnableIfSupported();
+        Settings.Enabled = Supported;
     }
 
     /// <summary>
