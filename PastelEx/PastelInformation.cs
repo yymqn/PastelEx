@@ -10,10 +10,8 @@ namespace PastelExtended;
 /// </summary>
 public readonly struct PastelInformation
 {
-    private readonly string _modifiedString;
     internal PastelInformation(string modifiedString)
     {
-        _modifiedString = modifiedString;
         var stringSpan = modifiedString.AsSpan();
         int length = 0;
 
