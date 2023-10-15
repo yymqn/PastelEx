@@ -15,13 +15,13 @@ public static class PastelEx
     static PastelEx()
     {
         Settings = new();
-        NoColor = EnvironmentDetector.ColorsDisabled;
-        if (NoColor)
-        {
+        NoColor = Helper.IsNoColor();
+
+        if (!NoColor &&
+            (Supported = WinNative.EnableIfSupported()))
+            Settings.Enabled = true;
+        else
             Settings.Enabled = false;
-        }
-        Supported = WinNative.EnableIfSupported();
-        Settings.Enabled = Supported;
     }
 
     /// <summary>
@@ -293,7 +293,7 @@ public static class PastelEx
     /// </summary>
     /// <param name="input">The string which have been modified by PastelEx.</param>
     /// <returns>The information of the string.</returns>
-    public static StringInformation GetInformation(string input) =>
+    public static PastelInformation GetInformation(string input) =>
         new(input);
 
     /// <summary>

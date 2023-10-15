@@ -4,7 +4,7 @@ namespace PastelExtended;
 
 internal static class EnvironmentDetector
 {
-    private static Func<string, string, bool>[] _environmentVariableDetectors = new Func<string, string, bool>[]
+    private static readonly Func<string, string, bool>[] _environmentVariableDetectors = new Func<string, string, bool>[]
     {
         IsBitbucketEnvironmentVariableKey,
         IsTeamCityEnvironmentVariableKey,

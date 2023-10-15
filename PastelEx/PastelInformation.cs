@@ -8,10 +8,12 @@ namespace PastelExtended;
 /// <summary>
 /// Gets the properties of the string, which have been modified by PastelEx, like it's original length excluding any colors and formats.
 /// </summary>
-public readonly struct StringInformation
+public readonly struct PastelInformation
 {
-    internal StringInformation(string modifiedString)
+    private readonly string _modifiedString;
+    internal PastelInformation(string modifiedString)
     {
+        _modifiedString = modifiedString;
         var stringSpan = modifiedString.AsSpan();
         int length = 0;
 
@@ -29,6 +31,15 @@ public readonly struct StringInformation
         }
 
         OriginalLength = length;
+    }
+
+    /// <summary>
+    /// An operator to explicitly convert a <see cref="string"/> into a <see cref="PastelInformation"/>.
+    /// </summary>
+    /// <param name="modifiedString">The original string to be used.</param>
+    public static explicit operator PastelInformation(string modifiedString)
+    {
+        return PastelEx.GetInformation(modifiedString);
     }
 
     /// <summary>
