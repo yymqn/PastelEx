@@ -55,6 +55,33 @@ public enum Decoration : byte
     DoubleUnderline = 21
 }
 
+/// <summary>
+/// Available color palettes to be used.
+/// </summary>
+public enum ColorPalette : byte
+{
+    /// <summary>
+    /// Uses only <see cref="System.Drawing.Color"/> to get colors to the console. All other color types will be
+    /// automatically converted into the nearest <see cref="System.Drawing.Color"/> type.
+    /// </summary>
+    Color,
+
+    /// <summary>
+    /// Uses only <see cref="System.ConsoleColor"/> to get colors to the console. All other color types will be
+    /// automatically converted into the nearest <see cref="System.ConsoleColor"/> type.
+    /// </summary>
+    ConsoleColor,
+
+    /// <summary>
+    /// Both <see cref="System.ConsoleColor"/> and <see cref="System.Drawing.Color"/> can be used without any conversions.
+    /// </summary>
+    /// <remarks>
+    /// If you're using this option, which is enabled by default, be aware as user's console palette might be different what expected,
+    /// resulting in an unexpected results when mixing both <see cref="System.ConsoleColor"/> and <see cref="System.Drawing.Color"/>.
+    /// </remarks>
+    Both
+}
+
 internal enum ColorPlane : byte
 {
     Foreground = 38,

@@ -57,7 +57,7 @@ public class Benchmark
     [Benchmark]
     public string Pastel_Nested_HexStringColor() => ConsoleExtensions.Pastel($"This is {ConsoleExtensions.PastelBg("my colorized", "#ffffff")} string", "#00ffff");
     #endregion
-
+    
     #region PastelEx
     [Benchmark]
     public string PastelEx_SimpleColorization_Color() => PastelEx.Fg("This is my colorized string", Color.Aqua);

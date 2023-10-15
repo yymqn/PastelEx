@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 
@@ -110,7 +110,7 @@ internal static class Helper
             unchecked
             {
                 byte rAverage = (byte)(rMin + (rMax - rMin) * i / steps);
-                byte gAverage = (byte)(gMin + (int)((gMax - gMin) * i / steps));
+                byte gAverage = (byte)(gMin + (gMax - gMin) * i / steps);
                 byte bAverage = (byte)(bMin + (bMax - bMin) * i / steps);
                 output[i] = Color.FromArgb(rAverage, gAverage, bAverage);
             }

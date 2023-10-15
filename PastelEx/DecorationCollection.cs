@@ -2,7 +2,7 @@
 /// <summary>
 /// Represents a list containing text decorations.
 /// </summary>
-public class DecorationCollection
+public sealed class DecorationCollection
 {
     internal DecorationCollection() { }
     readonly HashSet<Decoration> decorationList = new();

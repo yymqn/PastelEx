@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 #if DEBUG
 [assembly: InternalsVisibleTo("PastelEx.Tests")]
@@ -75,16 +76,6 @@ public static class PastelEx
         : input;
 
     /// <summary>
-    /// Colorizes the input string using the specified 8-bit console color.
-    /// </summary>
-    /// <param name="input">The input string to be colorized.</param>
-    /// <param name="color">The 8-bit console color to apply to the text.</param>
-    /// <returns>The colorized input string.</returns>
-    public static string Fg(this string input, byte color) => EnabledInternal ?
-        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Foreground)}"
-        : input;
-
-    /// <summary>
     /// Colorizes the input string using the specified hex color value.
     /// </summary>
     /// <param name="input">The input string to be colorized.</param>
@@ -123,16 +114,6 @@ public static class PastelEx
     /// <returns>The input string with background colorized.</returns>
     public static string Bg(this string input, ConsoleColor consoleColor) => EnabledInternal ?
         $"{Formatter.DefaultFormat}{Formatter.ColorDefault(input, consoleColor, ColorPlane.Background)}"
-        : input;
-
-    /// <summary>
-    /// Colorizes the background of the input string using the specified 8-bit console color.
-    /// </summary>
-    /// <param name="input">The input string to be colorized.</param>
-    /// <param name="color">The 8-bit console color to apply to the background.</param>
-    /// <returns>The input string with background colorized.</returns>
-    public static string Bg(this string input, byte color) => EnabledInternal ?
-        $"{Formatter.DefaultFormat}{Formatter.Color8bit(input, color, ColorPlane.Background)}"
         : input;
 
     /// <summary>
@@ -216,6 +197,7 @@ public static class PastelEx
         Helper.CreateGradientEffect(input, ColorPlane.Background, colors)
         : input;
 
+    private const string eraseLine = "\u001b[2K";
     internal static CompactColor defaultForeground = default;
     internal static CompactColor defaultBackground = default;
 
@@ -262,21 +244,42 @@ public static class PastelEx
     /// </summary>
     public static DecorationCollection Decorations => Formatter.sharedDecorations;
 
-    /// <summary>
-    /// Clears Console buffer with applying background colors if supported.
-    /// </summary>
-    public static void ClearConsole()
-    {
-        Console.Clear();
+    static readonly bool _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    internal static bool IsWindows => _isWindows;
 
-        if (EnabledInternal)
-            Console.Write("\u001b[2J");
+    /// <summary>
+    /// Clears Console buffer.
+    /// </summary>
+    public static void Clear()
+    {
+        if (!EnabledInternal)
+        {
+            Console.Clear();
+            return;
+        }
+
+        if (IsWindows)
+        {
+#pragma warning disable CA1416
+            var cursorVisible = Console.CursorVisible;
+            var cursorSize = Console.CursorSize;
+
+            Console.Write($"\u001bc{Formatter.DefaultFormat}\u001b[J");
+
+            Console.CursorVisible = cursorVisible;
+            Console.CursorSize = cursorSize;
+#pragma warning restore CA1416
+            return;
+        }
+
+        Console.Write($"\u001bc{Formatter.DefaultFormat}\u001b[J");
     }
 
     /// <summary>
     /// Refills current console buffer with empty chars. This will remove any old text, but refills entire background with current
     /// default <see cref="Background"/> color.
     /// </summary>
+    [Obsolete("Use PastelEx.Clear instead. This method flickers.")]
     public static void Refill()
     {
         if (EnabledInternal)
@@ -286,9 +289,17 @@ public static class PastelEx
     }
 
     /// <summary>
-    /// Removes all default colors and decorations.
+    /// Gets informations of the string, like it's original length without any formats.
     /// </summary>
-    public static void Reset()
+    /// <param name="input">The string which have been modified by PastelEx.</param>
+    /// <returns>The information of the string.</returns>
+    public static StringInformation GetInformation(string input) =>
+        new(input);
+
+    /// <summary>
+    /// Removes all default colors and decorations, resets console to it's defaults.
+    /// </summary>
+    public static void ResetPalette()
     {
         Decorations.Clear();
         Foreground = Color.Empty;
@@ -297,5 +308,92 @@ public static class PastelEx
         if (EnabledInternal && Settings.InstantRecolor)
             Console.Write("\u001b[0m");
         Console.ResetColor();
+    }
+
+    /// <summary>
+    /// Erases current line with moving cursor to the beginning of the line.
+    /// </summary>
+    public static void EraseLine()
+    {
+        if (EnabledInternal)
+        {
+            Console.Write($"{eraseLine}\r");
+        }
+        else
+        {
+            if (_redirectedOutput)
+                return;
+
+            var top = Console.CursorTop;
+            Console.Write($"\r{new string(' ', Console.WindowWidth)}");
+            Console.SetCursorPosition(0, top);
+        }
+    }
+
+    /// <summary>
+    /// Erases current line with moving cursor to the beginning of the line. The line will be overwritten to the string in the span.
+    /// </summary>
+    public static void EraseLine(ReadOnlySpan<char> newText)
+    {
+        if (EnabledInternal)
+        {
+            Console.Write($"{eraseLine}\r{newText}");
+        }
+        else
+        {
+            if (_redirectedOutput)
+            {
+                Console.Out.Write(newText);
+                return;
+            }
+
+            var top = Console.CursorTop;
+            Console.Write($"\r{new string(' ', Console.WindowWidth)}");
+            Console.SetCursorPosition(0, top);
+            Console.Out.Write(newText);
+            Console.SetCursorPosition(0, top);
+        }
+    }
+
+    private static readonly bool _redirectedOutput = Console.IsOutputRedirected;
+
+    /// <summary>
+    /// Saves current console buffer and creates a new one. After the action has completed with of without any exception,
+    /// old console buffer will be restored.
+    /// </summary>
+    /// <param name="action">An action to be performed on the alternate screen.</param>
+    /// <remarks>Might not be supported on every terminal. This method is not thread safe and
+    /// shouldn't be called multiple times at once!</remarks>
+    public static void AlternateScreen(Action action)
+    {
+        if (!EnabledInternal)
+        {
+            action();
+            return;
+        }
+
+        var (x, y) = (0, 0);
+        if (!_redirectedOutput)
+        {
+            x = Console.CursorLeft;
+            y = Console.CursorTop;
+            Console.SetCursorPosition(0, 0);
+        }
+
+        try
+        {
+            Console.Write("\u001b[?1049h");
+            action();
+        }
+        finally
+        {
+            Console.Write("\u001b[?1049l");
+
+            if (!_redirectedOutput)
+            {
+                Console.CursorLeft = x;
+                Console.CursorTop = y;
+            }
+        }
     }
 }
