@@ -20,6 +20,7 @@ public static class PastelEx
         {
             Settings.Enabled = false;
         }
+
         Supported = WinNative.EnableIfSupported();
         Settings.Enabled = Supported;
     }
@@ -41,14 +42,15 @@ public static class PastelEx
     internal static bool EnabledInternal => Supported && Settings.Enabled;
 
     /// <summary>
-    /// PastelEx behaviour settings. Used for lifetime of this application, not stored on disk.
+    /// PastelEx behavior settings. Used for lifetime of this application, not stored on disk.
     /// </summary>
     public static PastelSettings Settings { get; }
 
     /// <summary>
     /// Checks whether the current terminal is capable of displaying ANSI color codes.
+    /// <b>Changing this value manually may cause a garbage output. Change it only if you understand what you are doing.</b>
     /// </summary>
-    public static bool Supported { get; private set; }
+    public static bool Supported { get; set; }
 
     /// <summary>
     /// Verifies if the current user has explicitly disabled colored output.
@@ -289,7 +291,7 @@ public static class PastelEx
     }
 
     /// <summary>
-    /// Gets informations of the string, like it's original length without any formats.
+    /// Gets information of the string, like it's original length without any formats.
     /// </summary>
     /// <param name="input">The string which have been modified by PastelEx.</param>
     /// <returns>The information of the string.</returns>
